@@ -71,13 +71,8 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3">
               <li>
-                <a href="mailto:hello@lealabs.com" className="text-sm text-silver/70 hover:text-neon-bright transition-colors">
-                  hello@lealabs.com
-                </a>
-              </li>
-              <li>
-                <a href="tel:+971509424277" className="text-sm text-silver/70 hover:text-neon-bright transition-colors">
-                  +971 50 942 4277
+                <a href="mailto:hello@thelealabs.com" className="text-sm text-silver/70 hover:text-neon-bright transition-colors">
+                  hello@thelealabs.com
                 </a>
               </li>
               <li>

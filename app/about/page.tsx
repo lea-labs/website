@@ -165,7 +165,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <CTASection heading="Ready to Work with Us?" />
+        <CTASection heading="Let's build a legacy, not just a campaign"/>
       </main>
       <Footer />
     </>

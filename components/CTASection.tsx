@@ -29,7 +29,7 @@ export default function CTASection({
     // Open mailto with pre-filled body
     const subject = encodeURIComponent(`Enquiry from ${form.name}`);
     const body = encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`);
-    window.location.href = `mailto:hello@lealabs.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:hello@thelealabs.com?subject=${subject}&body=${body}`;
     setTimeout(() => {
       setSending(false);
       setSent(true);
@@ -51,16 +51,10 @@ export default function CTASection({
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
             <a
-              href="mailto:hello@lealabs.com"
+              href="mailto:hello@thelealabs.com"
               className="px-10 py-4 bg-neon text-white font-heading font-semibold text-sm tracking-[0.15em] uppercase rounded-full hover:bg-neon-bright hover:shadow-lg hover:shadow-neon/20 transition-all"
             >
-              hello@lealabs.com
-            </a>
-            <a
-              href="tel:+971509424277"
-              className="px-10 py-4 border border-white/10 text-silver font-heading font-semibold text-sm tracking-[0.15em] uppercase rounded-full hover:border-neon/30 hover:text-neon-bright transition-all"
-            >
-              +971 50 942 4277
+              hello@thelealabs.com
             </a>
           </div>
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
+import Image from "next/image";
 
 interface Particle {
   x: number;
@@ -230,17 +231,22 @@ export default function HeroCanvas() {
         <div className="w-[600px] h-[600px] rounded-full bg-neon/[0.06] blur-[120px]" />
       </div>
 
-      <div className="h-svh items-center w-full absolute z-40 pointer-events-none px-10 flex justify-center flex-col">
+      <div className="h-svh items-center w-full absolute z-40 pointer-events-none px-6 flex justify-center flex-col text-center">
         <div
-          className="transition-all duration-1000 ease-out"
+          className="transition-all duration-1000 ease-out flex justify-center w-full"
           style={{
             opacity: visible ? 1 : 0,
             transform: visible ? "translateY(0)" : "translateY(20px)",
           }}
         >
-          <h1 className="font-heading text-5xl md:text-7xl xl:text-8xl 2xl:text-9xl font-extrabold tracking-[0.08em] uppercase text-off-white text-glow-strong">
-            LEA LABS
-          </h1>
+          <Image
+            src="/images/text-vector.svg"
+            alt="LEA LABS"
+            width={800}
+            height={186}
+            className="w-[80vw] max-w-[400px] md:max-w-[550px] lg:max-w-[700px] h-auto drop-shadow-[0_0_30px_rgba(167,139,250,0.4)]"
+            priority
+          />
         </div>
 
         <div
