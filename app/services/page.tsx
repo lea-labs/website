@@ -70,11 +70,11 @@ export default function ServicesPage() {
       <Header />
       <main>
         {/* Hero */}
-        <section className="relative pt-32 pb-20 px-6 starfield overflow-hidden">
+        <section className="relative pt-36 pb-24 px-6 starfield overflow-hidden">
           <div className="orbital-lines" />
           <div className="glow-ambient top-20 left-1/2 -translate-x-1/2" />
           <div className="max-w-4xl mx-auto text-center relative z-10">
-            <h1 className="font-heading text-4xl md:text-6xl font-bold mb-6">
+            <h1 className="font-heading text-4xl md:text-6xl lg:text-7xl font-bold mb-6 text-glow">
               Engineered for Growth
             </h1>
             <p className="text-silver text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
@@ -96,13 +96,13 @@ export default function ServicesPage() {
             <div className="max-w-6xl mx-auto relative z-10">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
                 <ScrollReveal>
-                  <span className="font-heading text-6xl md:text-8xl font-bold text-neon/[0.06] select-none block">
+                  <span className="font-heading text-6xl md:text-8xl font-bold text-neon/[0.08] select-none block">
                     {pillar.num}
                   </span>
-                  <h2 className="font-heading text-2xl md:text-4xl font-bold -mt-6 mb-3">
+                  <h2 className="font-heading text-2xl md:text-4xl font-bold -mt-6 mb-3 text-off-white">
                     {pillar.title}
                   </h2>
-                  <p className="text-muted text-xs tracking-[0.2em] uppercase font-heading">
+                  <p className="text-silver text-sm tracking-[0.2em] uppercase font-heading">
                     {pillar.focus}
                   </p>
                 </ScrollReveal>
@@ -111,16 +111,16 @@ export default function ServicesPage() {
                   <div className="space-y-8">
                     {pillar.cats.map((cat) => (
                       <div key={cat.name}>
-                        <h3 className="font-heading text-[10px] font-semibold tracking-[0.3em] uppercase text-neon-bright mb-3">
+                        <h3 className="font-heading text-[11px] font-semibold tracking-[0.3em] uppercase text-neon-bright mb-3">
                           {cat.name}
                         </h3>
-                        <div className="grid grid-cols-2 gap-2">
+                        <div className="grid grid-cols-2 gap-2.5">
                           {cat.items.map((item) => (
                             <div
                               key={item}
-                              className="flex items-center gap-2 text-sm text-silver/70"
+                              className="flex items-center gap-2 text-sm text-silver"
                             >
-                              <div className="w-1 h-1 rounded-full bg-neon/30" />
+                              <div className="w-1.5 h-1.5 rounded-full bg-neon/40" />
                               {item}
                             </div>
                           ))}
@@ -139,29 +139,29 @@ export default function ServicesPage() {
           <div className="orbital-lines" />
           <div className="max-w-5xl mx-auto relative z-10">
             <ScrollReveal className="text-center mb-14">
-              <p className="font-heading text-[10px] tracking-[0.4em] uppercase text-neon-bright mb-3">
+              <p className="font-heading text-[11px] tracking-[0.4em] uppercase text-neon-bright mb-3">
                 How We Work
               </p>
-              <h2 className="font-heading text-3xl md:text-5xl font-bold">
+              <h2 className="font-heading text-3xl md:text-5xl font-bold text-glow">
                 Our Process
               </h2>
             </ScrollReveal>
 
             <ScrollReveal delay={200}>
               <div className="relative">
-                <div className="hidden md:block absolute top-8 left-0 right-0 h-px bg-gradient-to-r from-transparent via-neon/20 to-transparent" />
+                <div className="hidden md:block absolute top-8 left-0 right-0 h-px bg-gradient-to-r from-transparent via-neon/25 to-transparent" />
                 <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
                   {processSteps.map((step, i) => (
                     <div key={step.label} className="text-center relative">
-                      <div className="w-16 h-16 mx-auto mb-4 rounded-full border border-neon/20 bg-surface flex items-center justify-center relative z-10">
-                        <span className="font-mono text-xs text-neon-bright">
+                      <div className="w-16 h-16 mx-auto mb-4 rounded-full border border-neon/25 bg-surface flex items-center justify-center relative z-10">
+                        <span className="font-mono text-sm text-neon-bright font-bold">
                           {String(i + 1).padStart(2, "0")}
                         </span>
                       </div>
-                      <h3 className="font-heading text-xs font-semibold tracking-wider mb-1">
+                      <h3 className="font-heading text-xs font-bold tracking-wider mb-1 text-off-white">
                         {step.label}
                       </h3>
-                      <p className="text-muted text-[10px]">{step.desc}</p>
+                      <p className="text-silver text-xs">{step.desc}</p>
                     </div>
                   ))}
                 </div>

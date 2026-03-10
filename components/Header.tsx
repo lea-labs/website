@@ -8,15 +8,15 @@ export default function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-void/70 backdrop-blur-xl border-b border-white/[0.04]">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-void/80 backdrop-blur-xl border-b border-white/[0.04]">
       <nav className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <Link href="/" className="flex items-center">
+        <Link href="/" className="flex items-center gap-3">
           <Image
             src="/images/logo-text.png"
             alt="LEA LABS"
             width={140}
             height={40}
-            className="h-7 w-auto"
+            className="h-8 w-auto"
             priority
           />
         </Link>
@@ -32,14 +32,14 @@ export default function Header() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-xs font-heading font-medium tracking-[0.15em] uppercase text-silver/70 hover:text-neon-bright transition-colors"
+              className="text-xs font-heading font-medium tracking-[0.15em] uppercase text-silver hover:text-neon-bright transition-colors"
             >
               {link.label}
             </Link>
           ))}
           <a
             href="mailto:hello@lealabs.com"
-            className="text-xs font-heading font-medium tracking-[0.15em] uppercase px-5 py-2.5 border border-neon/30 rounded-full text-neon-bright hover:bg-neon/10 transition-all"
+            className="text-xs font-heading font-semibold tracking-[0.15em] uppercase px-6 py-3 border border-neon/30 rounded-full text-neon-bright hover:bg-neon/10 hover:border-neon/50 transition-all"
           >
             Get in Touch
           </a>
@@ -82,6 +82,12 @@ export default function Header() {
                 {link.label}
               </Link>
             ))}
+            <a
+              href="mailto:hello@lealabs.com"
+              className="text-sm font-heading tracking-wider text-neon-bright"
+            >
+              hello@lealabs.com
+            </a>
           </div>
         </div>
       )}

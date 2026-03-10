@@ -54,13 +54,13 @@ export default function FrameworkOrbital() {
       <div className="orbital-lines" />
 
       <ScrollReveal className="text-center pt-24 md:pt-32 px-6 relative z-10">
-        <p className="font-heading text-[10px] tracking-[0.4em] uppercase text-neon-bright mb-3">
+        <p className="font-heading text-[11px] tracking-[0.4em] uppercase text-neon-bright mb-3">
           Command Center
         </p>
-        <h2 className="font-heading text-3xl md:text-5xl font-bold">
+        <h2 className="font-heading text-3xl md:text-5xl font-bold text-glow">
           The LEA Framework
         </h2>
-        <p className="text-muted text-sm mt-3 max-w-md mx-auto">
+        <p className="text-silver text-base mt-3 max-w-md mx-auto">
           Interact with our strategic phases. Click nodes to explore.
         </p>
       </ScrollReveal>

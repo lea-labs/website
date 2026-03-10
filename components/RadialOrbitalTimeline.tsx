@@ -126,23 +126,62 @@ export default function RadialOrbitalTimeline({
       ref={containerRef}
       onClick={handleContainerClick}
     >
-      {/* Control panel frame lines */}
-      <div className="absolute inset-4 border border-neon/[0.06] rounded-lg pointer-events-none" />
-      <div className="absolute inset-8 border border-neon/[0.03] rounded-lg pointer-events-none" />
+      {/* Console frame — outer hull */}
+      <div className="absolute inset-3 border border-neon/[0.08] rounded-2xl pointer-events-none" />
+      <div className="absolute inset-6 border border-neon/[0.04] rounded-xl pointer-events-none" />
 
-      {/* Corner accents — spaceship HUD */}
-      <div className="absolute top-4 left-4 w-8 h-8 border-l border-t border-neon/20 rounded-tl-lg pointer-events-none" />
-      <div className="absolute top-4 right-4 w-8 h-8 border-r border-t border-neon/20 rounded-tr-lg pointer-events-none" />
-      <div className="absolute bottom-4 left-4 w-8 h-8 border-l border-b border-neon/20 rounded-bl-lg pointer-events-none" />
-      <div className="absolute bottom-4 right-4 w-8 h-8 border-r border-b border-neon/20 rounded-br-lg pointer-events-none" />
+      {/* Scan lines overlay */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.03]"
+        style={{
+          backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(167,139,250,0.1) 2px, rgba(167,139,250,0.1) 4px)",
+        }}
+      />
 
-      {/* Status readout — top */}
-      <div className="absolute top-6 left-1/2 -translate-x-1/2 flex items-center gap-3 pointer-events-none z-20">
-        <div className="w-1.5 h-1.5 rounded-full bg-neon animate-pulse" />
-        <span className="font-mono text-[9px] tracking-[0.3em] uppercase text-neon/60">
+      {/* Corner brackets — spaceship HUD */}
+      {[
+        "top-3 left-3 border-l-2 border-t-2 rounded-tl-xl",
+        "top-3 right-3 border-r-2 border-t-2 rounded-tr-xl",
+        "bottom-3 left-3 border-l-2 border-b-2 rounded-bl-xl",
+        "bottom-3 right-3 border-r-2 border-b-2 rounded-br-xl",
+      ].map((pos) => (
+        <div key={pos} className={`absolute w-10 h-10 ${pos} border-neon/25 pointer-events-none`} />
+      ))}
+
+      {/* Status readout — top bar */}
+      <div className="absolute top-5 left-1/2 -translate-x-1/2 flex items-center gap-4 pointer-events-none z-20">
+        <div className="flex items-center gap-2">
+          <div className="w-2 h-2 rounded-full bg-neon-bright animate-pulse shadow-lg shadow-neon/40" />
+          <span className="font-mono text-[9px] tracking-[0.3em] uppercase text-neon/70">
+            SYS:ONLINE
+          </span>
+        </div>
+        <div className="w-px h-3 bg-neon/15" />
+        <span className="font-heading text-[10px] tracking-[0.35em] uppercase text-neon-bright/80 font-semibold">
           LEA Framework — Active
         </span>
-        <div className="w-1.5 h-1.5 rounded-full bg-neon animate-pulse" />
+        <div className="w-px h-3 bg-neon/15" />
+        <div className="flex items-center gap-2">
+          <span className="font-mono text-[9px] tracking-[0.3em] uppercase text-neon/70">
+            NODES:{timelineData.length}
+          </span>
+          <div className="w-2 h-2 rounded-full bg-neon-bright animate-pulse shadow-lg shadow-neon/40" />
+        </div>
+      </div>
+
+      {/* Side readouts */}
+      <div className="absolute left-5 top-1/2 -translate-y-1/2 flex flex-col gap-3 pointer-events-none z-20">
+        {["PWR", "NET", "SIG"].map((label, i) => (
+          <div key={label} className="flex items-center gap-2">
+            <div
+              className="w-1 h-6 rounded-full"
+              style={{
+                background: `linear-gradient(to top, rgba(124,58,237,${0.2 + i * 0.2}), rgba(167,139,250,${0.4 + i * 0.2}))`,
+              }}
+            />
+            <span className="font-mono text-[7px] tracking-[0.2em] text-neon/40">{label}</span>
+          </div>
+        ))}
       </div>
 
       <div className="relative w-full max-w-4xl h-full flex items-center justify-center">
@@ -156,25 +195,28 @@ export default function RadialOrbitalTimeline({
         >
           {/* Center node — reactor core */}
           <div className="absolute w-16 h-16 rounded-full bg-gradient-to-br from-neon via-neon-glow to-neon-dim animate-pulse flex items-center justify-center z-10">
-            <div className="absolute w-20 h-20 rounded-full border border-neon-bright/20 animate-ping opacity-70" />
-            <div className="absolute w-24 h-24 rounded-full border border-neon/10 animate-ping opacity-50" style={{ animationDelay: "0.5s" }} />
-            <div className="absolute w-32 h-32 rounded-full border border-neon/[0.05]" />
-            <div className="w-8 h-8 rounded-full bg-off-white/90 backdrop-blur-md" />
+            <div className="absolute w-20 h-20 rounded-full border border-neon-bright/25 animate-ping opacity-70" />
+            <div className="absolute w-24 h-24 rounded-full border border-neon/15 animate-ping opacity-50" style={{ animationDelay: "0.5s" }} />
+            <div className="absolute w-32 h-32 rounded-full border border-neon/[0.06]" />
+            <div className="absolute w-40 h-40 rounded-full border border-neon/[0.03] border-dashed" style={{ animation: "spin 20s linear infinite" }} />
+            <div className="w-8 h-8 rounded-full bg-off-white/90 backdrop-blur-md shadow-lg shadow-neon/20" />
           </div>
 
-          {/* Orbit ring */}
-          <div className="absolute w-96 h-96 rounded-full border border-neon/[0.08]" />
-          <div className="absolute w-80 h-80 rounded-full border border-neon/[0.04] border-dashed" />
+          {/* Orbit rings */}
+          <div className="absolute w-96 h-96 rounded-full border border-neon/[0.1]" />
+          <div className="absolute w-80 h-80 rounded-full border border-neon/[0.05] border-dashed" style={{ animation: "spin 30s linear infinite reverse" }} />
+          <div className="absolute w-[420px] h-[420px] rounded-full border border-neon/[0.03]" />
 
           {/* Tick marks on orbit ring */}
-          {Array.from({ length: 24 }).map((_, i) => {
-            const a = (i / 24) * 360;
+          {Array.from({ length: 36 }).map((_, i) => {
+            const a = (i / 36) * 360;
             const r = 192;
             const rad = (a * Math.PI) / 180;
+            const isMajor = i % 3 === 0;
             return (
               <div
                 key={`tick-${i}`}
-                className="absolute w-px h-2 bg-neon/10 pointer-events-none"
+                className={`absolute ${isMajor ? "w-px h-3 bg-neon/15" : "w-px h-1.5 bg-neon/8"} pointer-events-none`}
                 style={{
                   left: `calc(50% + ${r * Math.cos(rad)}px)`,
                   top: `calc(50% + ${r * Math.sin(rad)}px)`,
@@ -210,7 +252,7 @@ export default function RadialOrbitalTimeline({
                 <div
                   className={`absolute rounded-full -inset-1 ${isPulsing ? "animate-pulse duration-1000" : ""}`}
                   style={{
-                    background: `radial-gradient(circle, rgba(124,58,237,0.2) 0%, rgba(124,58,237,0) 70%)`,
+                    background: `radial-gradient(circle, rgba(124,58,237,0.25) 0%, rgba(124,58,237,0) 70%)`,
                     width: `${item.energy * 0.5 + 40}px`,
                     height: `${item.energy * 0.5 + 40}px`,
                     left: `-${(item.energy * 0.5 + 40 - 40) / 2}px`,
@@ -220,21 +262,21 @@ export default function RadialOrbitalTimeline({
 
                 {/* Node */}
                 <div
-                  className={`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all duration-300 ${
+                  className={`w-12 h-12 rounded-full flex items-center justify-center border-2 transition-all duration-300 ${
                     isExpanded
-                      ? "bg-neon text-void border-neon-bright shadow-lg shadow-neon/30 scale-150"
+                      ? "bg-neon text-void border-neon-bright shadow-lg shadow-neon/40 scale-150"
                       : isRelated
                         ? "bg-neon/50 text-void border-neon-bright animate-pulse"
-                        : "bg-surface text-neon-bright border-neon/30"
+                        : "bg-surface text-neon-bright border-neon/30 hover:border-neon/50"
                   }`}
                 >
-                  <Icon size={16} />
+                  <Icon size={18} />
                 </div>
 
                 {/* Label */}
                 <div
-                  className={`absolute top-12 whitespace-nowrap text-[10px] font-heading font-semibold tracking-[0.15em] uppercase transition-all duration-300 ${
-                    isExpanded ? "text-neon-bright scale-110" : "text-silver/70"
+                  className={`absolute top-14 left-1/2 -translate-x-1/2 whitespace-nowrap text-[11px] font-heading font-bold tracking-[0.15em] uppercase transition-all duration-300 ${
+                    isExpanded ? "text-neon-bright scale-110 text-glow" : "text-silver/80"
                   }`}
                 >
                   {item.title}
@@ -242,51 +284,51 @@ export default function RadialOrbitalTimeline({
 
                 {/* Expanded panel — ship's data readout */}
                 {isExpanded && (
-                  <Card className="absolute top-20 left-1/2 -translate-x-1/2 w-64 bg-void/95 backdrop-blur-xl border-neon/20 shadow-xl shadow-neon/10 overflow-visible">
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-px h-3 bg-neon/40" />
+                  <Card className="absolute top-20 left-1/2 -translate-x-1/2 w-72 bg-void/95 backdrop-blur-xl border-neon/25 shadow-xl shadow-neon/15 overflow-visible">
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-px h-3 bg-neon/50" />
                     {/* HUD corners */}
-                    <div className="absolute top-0 left-0 w-3 h-3 border-l border-t border-neon/30" />
-                    <div className="absolute top-0 right-0 w-3 h-3 border-r border-t border-neon/30" />
-                    <div className="absolute bottom-0 left-0 w-3 h-3 border-l border-b border-neon/30" />
-                    <div className="absolute bottom-0 right-0 w-3 h-3 border-r border-b border-neon/30" />
+                    <div className="absolute top-0 left-0 w-4 h-4 border-l-2 border-t-2 border-neon/40" />
+                    <div className="absolute top-0 right-0 w-4 h-4 border-r-2 border-t-2 border-neon/40" />
+                    <div className="absolute bottom-0 left-0 w-4 h-4 border-l-2 border-b-2 border-neon/40" />
+                    <div className="absolute bottom-0 right-0 w-4 h-4 border-r-2 border-b-2 border-neon/40" />
 
                     <CardHeader className="pb-2">
                       <div className="flex justify-between items-center">
-                        <Badge className={`px-2 text-[9px] tracking-wider ${getStatusStyles(item.status)}`}>
+                        <Badge className={`px-2.5 py-0.5 text-[9px] tracking-wider font-heading ${getStatusStyles(item.status)}`}>
                           {item.status === "completed" ? "ONLINE" : item.status === "in-progress" ? "ACTIVE" : "STANDBY"}
                         </Badge>
-                        <span className="text-[9px] font-mono text-neon/50">{item.date}</span>
+                        <span className="text-[9px] font-mono text-neon/60">{item.date}</span>
                       </div>
-                      <CardTitle className="text-sm mt-2 text-off-white">{item.title}</CardTitle>
+                      <CardTitle className="text-base mt-2 text-off-white font-heading">{item.title}</CardTitle>
                     </CardHeader>
-                    <CardContent className="text-xs text-silver/80">
+                    <CardContent className="text-sm text-silver/90">
                       <p>{item.content}</p>
 
-                      <div className="mt-4 pt-3 border-t border-neon/10">
-                        <div className="flex justify-between items-center text-[10px] mb-1">
-                          <span className="flex items-center text-neon-bright/70">
-                            <Zap size={10} className="mr-1" />
+                      <div className="mt-4 pt-3 border-t border-neon/15">
+                        <div className="flex justify-between items-center text-[10px] mb-1.5">
+                          <span className="flex items-center text-neon-bright/80 font-heading tracking-wider">
+                            <Zap size={11} className="mr-1" />
                             Power Level
                           </span>
-                          <span className="font-mono text-neon-bright">{item.energy}%</span>
+                          <span className="font-mono text-neon-bright font-bold">{item.energy}%</span>
                         </div>
-                        <div className="w-full h-1 bg-surface rounded-full overflow-hidden">
+                        <div className="w-full h-1.5 bg-surface rounded-full overflow-hidden">
                           <div
-                            className="h-full bg-gradient-to-r from-neon-dim to-neon-bright rounded-full"
+                            className="h-full bg-gradient-to-r from-neon-dim to-neon-bright rounded-full shadow-sm shadow-neon/30"
                             style={{ width: `${item.energy}%` }}
                           />
                         </div>
                       </div>
 
                       {item.relatedIds.length > 0 && (
-                        <div className="mt-4 pt-3 border-t border-neon/10">
+                        <div className="mt-4 pt-3 border-t border-neon/15">
                           <div className="flex items-center mb-2">
-                            <Link size={10} className="text-neon/50 mr-1" />
-                            <h4 className="text-[9px] uppercase tracking-[0.2em] font-heading text-neon/50">
+                            <Link size={10} className="text-neon/60 mr-1" />
+                            <h4 className="text-[9px] uppercase tracking-[0.2em] font-heading text-neon/60">
                               Connected Nodes
                             </h4>
                           </div>
-                          <div className="flex flex-wrap gap-1">
+                          <div className="flex flex-wrap gap-1.5">
                             {item.relatedIds.map((relatedId) => {
                               const relatedItem = timelineData.find((i) => i.id === relatedId);
                               return (
@@ -294,14 +336,14 @@ export default function RadialOrbitalTimeline({
                                   key={relatedId}
                                   variant="outline"
                                   size="sm"
-                                  className="flex items-center h-6 px-2 py-0 text-[10px] rounded-none border-neon/20 bg-transparent hover:bg-neon/10 text-silver hover:text-neon-bright transition-all"
+                                  className="flex items-center h-7 px-3 py-0 text-[10px] rounded-full border-neon/25 bg-transparent hover:bg-neon/10 text-silver hover:text-neon-bright transition-all"
                                   onClick={(e) => {
                                     e.stopPropagation();
                                     toggleItem(relatedId);
                                   }}
                                 >
                                   {relatedItem?.title}
-                                  <ArrowRight size={8} className="ml-1 text-neon/40" />
+                                  <ArrowRight size={9} className="ml-1 text-neon/50" />
                                 </Button>
                               );
                             })}
@@ -317,14 +359,17 @@ export default function RadialOrbitalTimeline({
         </div>
       </div>
 
-      {/* Bottom status bar — spaceship HUD */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-6 pointer-events-none z-20">
-        <span className="font-mono text-[8px] tracking-[0.2em] uppercase text-muted/40">SYS:NOMINAL</span>
-        <div className="w-px h-3 bg-neon/10" />
-        <span className="font-mono text-[8px] tracking-[0.2em] uppercase text-muted/40">NODES:{timelineData.length}</span>
-        <div className="w-px h-3 bg-neon/10" />
-        <span className="font-mono text-[8px] tracking-[0.2em] uppercase text-muted/40">
-          {activeNodeId ? "LOCKED" : "SCANNING"}
+      {/* Bottom status bar */}
+      <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex items-center gap-6 pointer-events-none z-20">
+        <div className="flex items-center gap-2">
+          <div className={`w-1.5 h-1.5 rounded-full ${activeNodeId ? "bg-neon-bright" : "bg-neon/50"}`} />
+          <span className="font-mono text-[8px] tracking-[0.25em] uppercase text-silver/50">
+            {activeNodeId ? "TARGET:LOCKED" : "MODE:SCANNING"}
+          </span>
+        </div>
+        <div className="w-16 h-px bg-gradient-to-r from-transparent via-neon/20 to-transparent" />
+        <span className="font-mono text-[8px] tracking-[0.2em] uppercase text-silver/40">
+          LEA.OS v3.0
         </span>
       </div>
     </div>

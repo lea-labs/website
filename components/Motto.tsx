@@ -10,18 +10,18 @@ export default function Motto() {
 
       <div className="max-w-4xl mx-auto relative z-10">
         <ScrollReveal className="text-center mb-12">
-          <p className="font-heading text-[10px] tracking-[0.4em] uppercase text-neon-bright mb-6">
+          <p className="font-heading text-[11px] tracking-[0.4em] uppercase text-neon-bright mb-6">
             Who We Are
           </p>
           <h2 className="font-heading text-3xl md:text-5xl lg:text-6xl font-bold leading-tight">
             Engineering Brand
             <br />
-            <span className="text-neon-bright">Perception</span>
+            <span className="text-neon-bright text-glow-strong">Perception</span>
           </h2>
         </ScrollReveal>
 
         <ScrollReveal delay={150} className="max-w-2xl mx-auto text-center">
-          <p className="text-silver text-base md:text-lg leading-relaxed mb-8">
+          <p className="text-silver text-lg md:text-xl leading-relaxed mb-8">
             We are a brand strategy, growth systems & digital influence
             consultancy. We don&apos;t chase trends — we architect systems that
             compound influence, trust, and revenue.
@@ -38,7 +38,7 @@ export default function Motto() {
             ].map((item) => (
               <div
                 key={item.label}
-                className="flex items-center gap-3 px-5 py-3 border border-neon/15 rounded-full bg-neon/[0.03] hover:bg-neon/[0.08] hover:border-neon/30 transition-all cursor-default"
+                className="flex items-center gap-3 px-6 py-3.5 border border-neon/20 rounded-full bg-neon/[0.04] hover:bg-neon/[0.10] hover:border-neon/35 transition-all cursor-default"
               >
                 <svg
                   width="16"
