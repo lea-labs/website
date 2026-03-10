@@ -1,0 +1,197 @@
+@import "tailwindcss";
+
+@theme {
+  --color-void: #000000;
+  --color-abyss: #050510;
+  --color-deep: #0a0a1a;
+  --color-surface: #111128;
+  --color-panel: #1a1a2e;
+  --color-steel: #2a2a3e;
+  --color-muted: #6b7280;
+  --color-silver: #9ca3af;
+  --color-ash: #d1d5db;
+  --color-bone: #e5e5e5;
+  --color-off-white: #f0f0f5;
+
+  --color-neon: #7c3aed;
+  --color-neon-bright: #a78bfa;
+  --color-neon-dim: #4c1d95;
+  --color-neon-glow: #6d28d9;
+
+  --font-heading: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--color-void);
+  color: var(--color-off-white);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  letter-spacing: 0.02em;
+}
+
+/* Orbital star particles */
+.starfield {
+  position: relative;
+}
+.starfield::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 8% 15%, rgba(167,139,250,0.5), transparent),
+    radial-gradient(1px 1px at 22% 48%, rgba(255,255,255,0.25), transparent),
+    radial-gradient(1px 1px at 38% 82%, rgba(167,139,250,0.3), transparent),
+    radial-gradient(1px 1px at 55% 25%, rgba(255,255,255,0.2), transparent),
+    radial-gradient(1px 1px at 72% 67%, rgba(124,58,237,0.4), transparent),
+    radial-gradient(1px 1px at 88% 10%, rgba(255,255,255,0.3), transparent),
+    radial-gradient(1.5px 1.5px at 15% 60%, rgba(167,139,250,0.35), transparent),
+    radial-gradient(1.5px 1.5px at 45% 40%, rgba(124,58,237,0.25), transparent),
+    radial-gradient(1px 1px at 65% 90%, rgba(255,255,255,0.2), transparent),
+    radial-gradient(1px 1px at 92% 50%, rgba(167,139,250,0.3), transparent);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Orbital lines */
+.orbital-lines {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.orbital-lines::before,
+.orbital-lines::after {
+  content: "";
+  position: absolute;
+  border: 1px solid rgba(124, 58, 237, 0.06);
+  border-radius: 50%;
+}
+.orbital-lines::before {
+  width: 800px;
+  height: 800px;
+  top: -200px;
+  right: -300px;
+}
+.orbital-lines::after {
+  width: 600px;
+  height: 600px;
+  bottom: -150px;
+  left: -200px;
+}
+
+/* Purple ambient glow */
+.glow-ambient {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(ellipse, rgba(124,58,237,0.08), transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(80px);
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Scan line animation */
+@keyframes scan {
+  0%, 100% { top: 0%; }
+  50% { top: 100%; }
+}
+
+/* Glow pulse */
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+}
+
+/* Fade in animations for hero */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+.fade-in-subtitle {
+  animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+/* Explore button */
+.explore-btn {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: 1px solid rgba(167, 139, 250, 0.3);
+  color: rgba(167, 139, 250, 0.8);
+  font-family: var(--font-heading);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 12px 24px;
+  border-radius: 999px;
+  cursor: pointer;
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+  transition: border-color 0.3s, color 0.3s;
+  pointer-events: auto;
+}
+.explore-btn:hover {
+  border-color: rgba(167, 139, 250, 0.6);
+  color: rgba(167, 139, 250, 1);
+}
+.explore-arrow {
+  display: flex;
+}
+.arrow-svg {
+  animation: float 2s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+
+/* Card glow */
+.card-glow {
+  transition: box-shadow 0.4s ease, border-color 0.4s ease;
+}
+.card-glow:hover {
+  box-shadow: 0 0 40px rgba(124, 58, 237, 0.15);
+  border-color: rgba(124, 58, 237, 0.4);
+}
