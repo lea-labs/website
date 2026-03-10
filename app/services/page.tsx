@@ -8,6 +8,7 @@ const pillars = [
     num: "01",
     title: "Brand Architecture & Strategic Positioning",
     focus: "Engineering clarity and structure.",
+    type: "Monthly Retainer" as const,
     cats: [
       { name: "Core Architecture", items: ["Brand Strategy", "Brand Positioning", "Naming & Tagline", "Rebranding"] },
       { name: "Intelligence", items: ["Market Research", "Competitor Analysis", "Brand Audit", "Customer Persona"] },
@@ -18,6 +19,7 @@ const pillars = [
     num: "02",
     title: "Digital Ecosystem Development",
     focus: "Building foundations for reality.",
+    type: "One-Time Project" as const,
     cats: [
       { name: "Web Systems", items: ["Website Design", "Web Development", "E-Commerce Dev", "Landing Pages"] },
       { name: "Applications", items: ["Web App Development", "Mobile App Dev", "UI/UX Design", "CMS Development"] },
@@ -28,6 +30,7 @@ const pillars = [
     num: "03",
     title: "Content Engine & Multi-Channel Storytelling",
     focus: "Communication with intention.",
+    type: "Monthly Retainer" as const,
     cats: [
       { name: "Narrative", items: ["Content Strategy", "Copywriting", "Ghost-writing", "Thought Leadership"] },
       { name: "Visual Assets", items: ["Video Production", "Motion Graphics", "Photography", "Presentation Design"] },
@@ -38,6 +41,7 @@ const pillars = [
     num: "04",
     title: "Revenue Acceleration & Acquisition",
     focus: "Accelerating measurable impact.",
+    type: "Monthly Retainer" as const,
     cats: [
       { name: "Visibility", items: ["Technical SEO", "Local SEO", "Search Marketing", "Google Ads"] },
       { name: "Paid Systems", items: ["Meta Ads", "LinkedIn Ads", "YouTube Ads", "Retargeting"] },
@@ -48,6 +52,7 @@ const pillars = [
     num: "05",
     title: "Reputation Management & Influence Capital",
     focus: "Leveraging human and network power.",
+    type: "Monthly Retainer" as const,
     cats: [
       { name: "Influence", items: ["Community Building", "Personal Brand Engineering", "Influencer Strategy", "Thought Leadership Programs"] },
       { name: "PR & Comms", items: ["PR Strategy", "Media Placement", "Reputation Management", "Corporate Communications"] },
@@ -69,6 +74,7 @@ export default function ServicesPage() {
     <>
       <Header />
       <main>
+        {/* Hero */}
         {/* Hero */}
         <section className="relative pt-36 pb-24 px-6 starfield overflow-hidden">
           <div className="orbital-lines" />
@@ -105,6 +111,11 @@ export default function ServicesPage() {
                   <p className="text-silver text-sm tracking-[0.2em] uppercase font-heading">
                     {pillar.focus}
                   </p>
+                  <div>
+                    <span className="inline-block mt-2 px-3 py-1 border border-dashed border-neon/30 text-neon-bright/70 text-[9px] font-heading tracking-[0.2em] uppercase rounded-sm">
+                      {pillar.type}
+                    </span>
+                  </div>
                 </ScrollReveal>
 
                 <ScrollReveal delay={150}>

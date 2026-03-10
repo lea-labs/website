@@ -35,15 +35,6 @@ export default function RadialOrbitalTimeline({
   const orbitRef = useRef<HTMLDivElement>(null);
   const nodeRefs = useRef<Record<number, HTMLDivElement | null>>({});
 
-  const handleContainerClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target === containerRef.current || e.target === orbitRef.current) {
-      setExpandedItems({});
-      setActiveNodeId(null);
-      setPulseEffect({});
-      setAutoRotate(true);
-    }
-  };
-
   const toggleItem = (id: number) => {
     setExpandedItems((prev) => {
       const newState: Record<number, boolean> = {};
@@ -88,7 +79,7 @@ export default function RadialOrbitalTimeline({
 
   const calculateNodePosition = (index: number, total: number) => {
     const angle = ((index / total) * 360 + rotationAngle) % 360;
-    const radius = 200;
+    const radius = 220;
     const radian = (angle * Math.PI) / 180;
     const x = radius * Math.cos(radian) + centerOffset.x;
     const y = radius * Math.sin(radian) + centerOffset.y;
@@ -124,7 +115,6 @@ export default function RadialOrbitalTimeline({
     <div
       className="w-full h-[600px] md:h-[700px] flex flex-col items-center justify-center bg-void overflow-hidden relative"
       ref={containerRef}
-      onClick={handleContainerClick}
     >
       {/* Console frame — outer hull */}
       <div className="absolute inset-3 border border-neon/[0.08] rounded-2xl pointer-events-none" />
@@ -243,9 +233,14 @@ export default function RadialOrbitalTimeline({
                   zIndex: isExpanded ? 200 : position.zIndex,
                   opacity: isExpanded ? 1 : position.opacity,
                 }}
-                onClick={(e) => {
-                  e.stopPropagation();
+                onMouseEnter={() => {
                   toggleItem(item.id);
+                }}
+                onMouseLeave={() => {
+                  setExpandedItems({});
+                  setActiveNodeId(null);
+                  setPulseEffect({});
+                  setAutoRotate(true);
                 }}
               >
                 {/* Energy field */}
@@ -262,7 +257,7 @@ export default function RadialOrbitalTimeline({
 
                 {/* Node */}
                 <div
-                  className={`w-12 h-12 rounded-full flex items-center justify-center border-2 transition-all duration-300 ${
+                  className={`w-16 h-16 rounded-full flex items-center justify-center border-2 transition-all duration-300 ${
                     isExpanded
                       ? "bg-neon text-void border-neon-bright shadow-lg shadow-neon/40 scale-150"
                       : isRelated
@@ -270,13 +265,13 @@ export default function RadialOrbitalTimeline({
                         : "bg-surface text-neon-bright border-neon/30 hover:border-neon/50"
                   }`}
                 >
-                  <Icon size={18} />
+                  <Icon size={24} />
                 </div>
 
                 {/* Label */}
                 <div
                   className={`absolute top-14 left-1/2 -translate-x-1/2 whitespace-nowrap text-[11px] font-heading font-bold tracking-[0.15em] uppercase transition-all duration-300 ${
-                    isExpanded ? "text-neon-bright scale-110 text-glow" : "text-silver/80"
+                    isExpanded ? "text-neon-bright scale-110 text-glow" : "text-silver"
                   }`}
                 >
                   {item.title}

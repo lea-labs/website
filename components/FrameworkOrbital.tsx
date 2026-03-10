@@ -27,7 +27,7 @@ const frameworkData = [
     title: "Engineer",
     date: "Phase 02",
     content:
-      "Designing and building the brand system — identity, digital presence, structural foundations. Turning strategy into a structured brand system.",
+      "Designing and building the brand system: identity, digital presence, structural foundations. Turning strategy into a structured brand system.",
     category: "Build",
     icon: Wrench,
     relatedIds: [1, 3],
@@ -61,7 +61,7 @@ export default function FrameworkOrbital() {
           The LEA Framework
         </h2>
         <p className="text-silver text-base mt-3 max-w-md mx-auto">
-          Interact with our strategic phases. Click nodes to explore.
+          Interact with our strategic phases. Hover over nodes to explore.
         </p>
       </ScrollReveal>
 

@@ -211,115 +211,78 @@ function NeuralBackground() {
 }
 
 export default function HeroCanvas() {
-  const titleWords = "Lea Labs".split(" ");
-  const subtitle = "Strategic Growth & Brand Consultancy";
-  const tagline = "Engineering Brand Perception";
-  const [visibleWords, setVisibleWords] = useState(0);
+  const [visible, setVisible] = useState(false);
   const [subtitleVisible, setSubtitleVisible] = useState(false);
   const [taglineVisible, setTaglineVisible] = useState(false);
-  const [delays, setDelays] = useState<number[]>([]);
-  const [subtitleDelay, setSubtitleDelay] = useState(0);
 
   useEffect(() => {
-    setDelays(titleWords.map(() => Math.random() * 0.07));
-    setSubtitleDelay(Math.random() * 0.1);
-  }, [titleWords.length]);
-
-  useEffect(() => {
-    if (visibleWords < titleWords.length) {
-      const timeout = setTimeout(
-        () => setVisibleWords(visibleWords + 1),
-        600
-      );
-      return () => clearTimeout(timeout);
-    } else {
-      const timeout = setTimeout(() => setSubtitleVisible(true), 800);
-      return () => clearTimeout(timeout);
-    }
-  }, [visibleWords, titleWords.length]);
-
-  useEffect(() => {
-    if (subtitleVisible) {
-      const timeout = setTimeout(() => setTaglineVisible(true), 1000);
-      return () => clearTimeout(timeout);
-    }
-  }, [subtitleVisible]);
+    const t1 = setTimeout(() => setVisible(true), 300);
+    const t2 = setTimeout(() => setSubtitleVisible(true), 1200);
+    const t3 = setTimeout(() => setTaglineVisible(true), 2000);
+    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
+  }, []);
 
   return (
     <div className="h-svh relative bg-void">
-      {/* Neural particle background */}
       <NeuralBackground />
 
-      {/* Radial purple glow behind center */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <div className="w-[600px] h-[600px] rounded-full bg-neon/[0.06] blur-[120px]" />
       </div>
 
-      {/* Text overlay */}
-      <div className="h-svh uppercase items-center w-full absolute z-40 pointer-events-none px-10 flex justify-center flex-col">
-        <div className="text-4xl md:text-6xl xl:text-7xl 2xl:text-8xl font-extrabold font-heading">
-          <div className="flex space-x-3 lg:space-x-6 overflow-hidden text-off-white text-glow-strong">
-            {titleWords.map((word, index) => (
-              <div
-                key={index}
-                className={index < visibleWords ? "fade-in" : ""}
-                style={{
-                  animationDelay: `${index * 0.13 + (delays[index] || 0)}s`,
-                  opacity: index < visibleWords ? undefined : 0,
-                }}
-              >
-                {word}
-              </div>
-            ))}
-          </div>
+      <div className="h-svh items-center w-full absolute z-40 pointer-events-none px-10 flex justify-center flex-col">
+        <div
+          className="transition-all duration-1000 ease-out"
+          style={{
+            opacity: visible ? 1 : 0,
+            transform: visible ? "translateY(0)" : "translateY(20px)",
+          }}
+        >
+          <h1 className="font-heading text-5xl md:text-7xl xl:text-8xl 2xl:text-9xl font-extrabold tracking-[0.08em] uppercase text-off-white text-glow-strong">
+            LEA LABS
+          </h1>
         </div>
-        <div className="text-sm md:text-xl xl:text-2xl 2xl:text-3xl mt-4 overflow-hidden text-silver font-heading font-medium tracking-[0.15em]">
-          <div
-            className={subtitleVisible ? "fade-in-subtitle" : ""}
-            style={{
-              animationDelay: `${titleWords.length * 0.13 + 0.2 + subtitleDelay}s`,
-              opacity: subtitleVisible ? undefined : 0,
-            }}
-          >
-            {subtitle}
-          </div>
+
+        <div
+          className="text-sm md:text-xl xl:text-2xl mt-6 text-silver font-heading font-medium tracking-[0.15em] uppercase transition-all duration-1000 ease-out"
+          style={{
+            opacity: subtitleVisible ? 1 : 0,
+            transform: subtitleVisible ? "translateY(0)" : "translateY(20px)",
+          }}
+        >
+          Strategic Growth & Brand Consultancy
         </div>
-        <div className="text-xs md:text-base xl:text-lg mt-5 overflow-hidden">
-          <div
-            className={taglineVisible ? "fade-in-subtitle" : ""}
-            style={{
-              animationDelay: "0.3s",
-              opacity: taglineVisible ? undefined : 0,
-            }}
-          >
-            <span className="px-5 py-2 border border-neon/40 rounded-full text-neon-bright font-heading tracking-[0.2em] text-[11px] md:text-sm uppercase neon-border">
-              {tagline}
-            </span>
-          </div>
+
+        <div
+          className="mt-5 transition-all duration-1000 ease-out"
+          style={{
+            opacity: taglineVisible ? 1 : 0,
+            transform: taglineVisible ? "translateY(0)" : "translateY(20px)",
+          }}
+        >
+          <span className="px-5 py-2 border border-neon/40 rounded-full text-neon-bright font-heading tracking-[0.2em] text-[11px] md:text-sm uppercase neon-border">
+            Engineering Brand Perception
+          </span>
         </div>
       </div>
 
-      <button
-        className="explore-btn"
-        style={{ animationDelay: "2.8s" }}
-        onClick={() =>
-          document.getElementById("content")?.scrollIntoView({ behavior: "smooth" })
-        }
-      >
-        Scroll to explore
-        <span className="explore-arrow">
-          <svg
-            width="22"
-            height="22"
-            viewBox="0 0 22 22"
-            fill="none"
-            className="arrow-svg"
-          >
-            <path d="M11 5V17" stroke="#a78bfa" strokeWidth="1.5" strokeLinecap="round" />
-            <path d="M6 12L11 17L16 12" stroke="#a78bfa" strokeWidth="1.5" strokeLinecap="round" />
-          </svg>
-        </span>
-      </button>
+      <div className="absolute bottom-10 left-0 right-0 flex justify-center z-50">
+        <button
+          className="explore-btn"
+          style={{ animationDelay: "2.8s", position: "relative", bottom: "auto", left: "auto", transform: "none" }}
+          onClick={() =>
+            document.getElementById("content")?.scrollIntoView({ behavior: "smooth" })
+          }
+        >
+          Scroll to explore
+          <span className="explore-arrow">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" className="arrow-svg">
+              <path d="M11 5V17" stroke="#a78bfa" strokeWidth="1.5" strokeLinecap="round" />
+              <path d="M6 12L11 17L16 12" stroke="#a78bfa" strokeWidth="1.5" strokeLinecap="round" />
+            </svg>
+          </span>
+        </button>
+      </div>
     </div>
   );
 }

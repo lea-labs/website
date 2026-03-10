@@ -26,7 +26,7 @@ export default function Home() {
         <Motto />
         <FrameworkOrbital />
         <PillarsPreview />
-        <CTASection />
+        <CTASection showEnquiry />
       </main>
       <Footer />
     </>

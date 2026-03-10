@@ -44,7 +44,7 @@ export default function OurLabPage() {
               <ScrollReveal>
                 <div className="bg-surface/50 border border-white/[0.06] rounded-xl p-8">
                   <span className="inline-block px-3 py-1 bg-steel/50 text-silver text-[10px] font-heading font-bold tracking-[0.2em] uppercase mb-6 rounded-sm">
-                    Current Stand (Failures)
+                    Usual Technique
                   </span>
                   <ul className="space-y-4">
                     {[
@@ -95,6 +95,9 @@ export default function OurLabPage() {
                 <p className="text-silver italic text-base">
                   &ldquo;Guerilla marketing grabs attention. Community building keeps it.&rdquo;
                 </p>
+                <cite className="block mt-2 text-neon-bright/70 text-sm font-heading tracking-wider not-italic">
+                  &mdash; Lea Labs
+                </cite>
               </blockquote>
             </ScrollReveal>
           </div>
@@ -168,21 +171,33 @@ export default function OurLabPage() {
             </ScrollReveal>
 
             <ScrollReveal delay={200}>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="flex flex-col lg:flex-row items-center gap-0">
                 {[
-                  { label: "REACH", sub: "Viral Reels & Exposure", shade: "neon-dim" },
-                  { label: "TRUST", sub: "Community Nurturing", shade: "neon" },
-                  { label: "INTENT", sub: "Data-Backed Engagement", shade: "neon-glow" },
-                  { label: "LEAD", sub: "High-Intent Conversion", shade: "neon-bright" },
+                  { label: "REACH", sub: "Viral Reels & Exposure" },
+                  { label: "TRUST", sub: "Community Nurturing" },
+                  { label: "INTENT", sub: "Data-Backed Engagement" },
+                  { label: "LEAD", sub: "High-Intent Conversion" },
                 ].map((stage, i) => (
-                  <div key={stage.label} className="bg-surface border border-neon/15 rounded-xl overflow-hidden card-glow">
-                    <div className="h-1.5" style={{ background: `rgba(124,58,237,${0.3 + i * 0.2})` }} />
-                    <div className="p-7 text-center">
-                      <h3 className="font-heading text-xl font-bold tracking-[0.15em] mb-2 text-off-white">
-                        {stage.label}
-                      </h3>
-                      <p className="text-silver text-xs tracking-wider uppercase">{stage.sub}</p>
+                  <div key={stage.label} className="flex items-center">
+                    <div className="bg-surface border border-neon/15 rounded-xl overflow-hidden card-glow w-full lg:w-48">
+                      <div className="h-1.5" style={{ background: `rgba(124,58,237,${0.3 + i * 0.2})` }} />
+                      <div className="p-6 text-center">
+                        <h3 className="font-heading text-lg font-bold tracking-[0.15em] mb-2 text-off-white">
+                          {stage.label}
+                        </h3>
+                        <p className="text-silver text-[10px] tracking-wider uppercase">{stage.sub}</p>
+                      </div>
                     </div>
+                    {i < 3 && (
+                      <div className="flex items-center justify-center px-2 py-3 lg:py-0">
+                        {/* Arrow - rotated on mobile */}
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" className="text-neon-bright/60 rotate-90 lg:rotate-0">
+                          <path d="M8 16H24" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                          <path d="M18 10L24 16L18 22" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                          <circle cx="16" cy="16" r="15" stroke="currentColor" strokeWidth="0.5" opacity="0.2" />
+                        </svg>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
@@ -210,60 +225,85 @@ export default function OurLabPage() {
               </h2>
             </ScrollReveal>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <ScrollReveal>
-                <span className="inline-block px-3 py-1 bg-neon/20 text-neon-bright text-[10px] font-heading font-bold tracking-[0.2em] uppercase mb-6 rounded-sm">
-                  Engineering Interest
-                </span>
-                <h3 className="font-heading text-2xl md:text-4xl font-bold italic leading-tight mb-6">
-                  We Don&apos;t Just
-                  <br />
-                  <span className="text-neon-bright text-glow">&ldquo;Shoot Videos&rdquo;</span>
-                </h3>
-                <div className="border-l-2 border-neon/25 pl-6">
-                  <p className="text-silver text-base leading-relaxed">
-                    We map human triggers into every frame. By engineering dopamine spikes
-                    and pattern interruptions, we force the brain to stop scrolling and
-                    start listening.
-                  </p>
+            {/* Brain-centered neural map layout */}
+            <ScrollReveal>
+              <div className="relative max-w-3xl mx-auto">
+                {/* Top node: Mere Exposure */}
+                <div className="flex justify-center mb-6">
+                  <div className="border border-neon/25 rounded-xl p-5 text-center bg-surface/50 hover:border-neon/40 hover:bg-neon/[0.03] transition-all w-56">
+                    <span className="font-heading text-sm font-bold tracking-[0.1em] block mb-1 text-off-white">Mere Exposure</span>
+                    <span className="text-silver text-xs">Brand Familiarity</span>
+                  </div>
                 </div>
-              </ScrollReveal>
 
-              <ScrollReveal delay={200}>
-                <div className="grid grid-cols-2 gap-4">
-                  {[
-                    { label: "Mere Exposure", sub: "Brand Familiarity" },
-                    { label: "Authority Bias", sub: "Legacy & Trust" },
-                    { label: "Halo Effect", sub: "Developer Synergy" },
-                    { label: "Loss Aversion", sub: "FOMO Loops" },
-                  ].map((node) => (
-                    <div
-                      key={node.label}
-                      className="border border-neon/20 rounded-xl p-5 text-center bg-surface/50 hover:border-neon/40 hover:bg-neon/[0.03] transition-all"
-                    >
-                      <span className="font-heading text-sm font-bold tracking-[0.1em] block mb-1 text-off-white">
-                        {node.label}
-                      </span>
-                      <span className="text-silver text-xs">{node.sub}</span>
+                {/* Connector line down */}
+                <div className="flex justify-center"><div className="w-px h-6 bg-gradient-to-b from-neon/40 to-neon/20" /></div>
+
+                {/* Middle row: Authority Bias | Brain | Halo Effect */}
+                <div className="flex items-center justify-center gap-4 md:gap-8 my-4">
+                  <div className="border border-neon/25 rounded-xl p-5 text-center bg-surface/50 hover:border-neon/40 hover:bg-neon/[0.03] transition-all w-48">
+                    <span className="font-heading text-sm font-bold tracking-[0.1em] block mb-1 text-off-white">Authority Bias</span>
+                    <span className="text-silver text-xs">Legacy & Trust</span>
+                  </div>
+
+                  {/* Connector line */}
+                  <div className="w-6 h-px bg-gradient-to-r from-neon/40 to-neon/20 hidden md:block" />
+
+                  {/* Brain icon center */}
+                  <div className="relative w-24 h-24 md:w-28 md:h-28 shrink-0">
+                    <div className="absolute inset-0 rounded-full bg-neon/10 animate-pulse" />
+                    <div className="absolute inset-2 rounded-full border border-neon/30 flex items-center justify-center bg-surface/80">
+                      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" className="text-neon-bright">
+                        <path d="M12 2a5 5 0 0 1 5 5c0 1.5-.5 2.5-1.5 3.5L12 14l-3.5-3.5C7.5 9.5 7 8.5 7 7a5 5 0 0 1 5-5z" />
+                        <path d="M7 7c0-1 .5-2 1.5-2.5" />
+                        <path d="M17 7c0-1-.5-2-1.5-2.5" />
+                        <path d="M8.5 14.5C6 15.5 4 17 4 19c0 1.5 1 2.5 2 3" />
+                        <path d="M15.5 14.5C18 15.5 20 17 20 19c0 1.5-1 2.5-2 3" />
+                        <path d="M12 14v8" />
+                        <path d="M9 18c-1 0-2 .5-2 1.5" />
+                        <path d="M15 18c1 0 2 .5 2 1.5" />
+                      </svg>
                     </div>
-                  ))}
+                    <div className="absolute -inset-2 rounded-full border border-neon/[0.08]" />
+                  </div>
+
+                  {/* Connector line */}
+                  <div className="w-6 h-px bg-gradient-to-r from-neon/20 to-neon/40 hidden md:block" />
+
+                  <div className="border border-neon/25 rounded-xl p-5 text-center bg-surface/50 hover:border-neon/40 hover:bg-neon/[0.03] transition-all w-48">
+                    <span className="font-heading text-sm font-bold tracking-[0.1em] block mb-1 text-off-white">Halo Effect</span>
+                    <span className="text-silver text-xs">Developer Synergy</span>
+                  </div>
                 </div>
 
-                <div className="mt-6 bg-surface border border-white/[0.06] rounded-xl p-6 text-center">
-                  <p className="font-heading text-[10px] tracking-[0.2em] uppercase text-neon/60 mb-2">
-                    Cognitive Engine
-                  </p>
-                  <p className="text-base text-silver leading-relaxed">
-                    Turn passive scrollers into a &ldquo;tribe&rdquo; of loyalists who view your
-                    brand as the{" "}
-                    <span className="text-neon-bright font-semibold underline decoration-neon/50">
-                      only logical choice
-                    </span>{" "}
-                    in the market.
-                  </p>
+                {/* Connector line down */}
+                <div className="flex justify-center"><div className="w-px h-6 bg-gradient-to-b from-neon/20 to-neon/40" /></div>
+
+                {/* Bottom node: Loss Aversion */}
+                <div className="flex justify-center mt-6">
+                  <div className="border border-neon/25 rounded-xl p-5 text-center bg-surface/50 hover:border-neon/40 hover:bg-neon/[0.03] transition-all w-56">
+                    <span className="font-heading text-sm font-bold tracking-[0.1em] block mb-1 text-off-white">Loss Aversion</span>
+                    <span className="text-silver text-xs">FOMO Loops</span>
+                  </div>
                 </div>
-              </ScrollReveal>
-            </div>
+              </div>
+            </ScrollReveal>
+
+            {/* Quote below brain structure */}
+            <ScrollReveal delay={200} className="mt-10">
+              <div className="text-center max-w-2xl mx-auto">
+                <p className="text-silver italic text-lg leading-relaxed">
+                  &ldquo;We don&apos;t just shoot videos&rdquo;
+                </p>
+                <p className="text-neon-bright font-heading text-sm tracking-[0.15em] uppercase mt-3">
+                  We map human triggers into every frame.
+                </p>
+                <p className="text-silver/70 text-sm mt-4 max-w-lg mx-auto">
+                  By engineering dopamine spikes and pattern interruptions, we force the brain
+                  to stop scrolling and start listening.
+                </p>
+              </div>
+            </ScrollReveal>
           </div>
         </section>
 
@@ -281,17 +321,18 @@ export default function OurLabPage() {
             </ScrollReveal>
 
             <ScrollReveal delay={150}>
-              <div className="flex rounded-xl overflow-hidden mb-10">
-                <div className="flex-1 bg-neon/10 border border-neon/20 p-4 md:p-6">
-                  <p className="font-heading text-xs font-bold text-neon-bright italic">0-2s: HOOK</p>
+              <div className="flex flex-col md:flex-row rounded-xl overflow-hidden mb-10">
+                <div className="flex-1 p-5 md:p-6 border-l-4 border-l-emerald-400 bg-emerald-400/[0.06] border border-emerald-400/20">
+                  <p className="font-heading text-xs font-bold text-emerald-400 italic">0-2s: HOOK</p>
+                  <p className="text-silver/70 text-[10px] mt-1">Pattern Interrupt</p>
                 </div>
-                <div className="flex-[2] bg-neon/[0.06] border border-neon/15 p-4 md:p-6">
-                  <p className="font-heading text-xs font-bold text-neon-bright/80 italic">2-30s: TENSION & STORYTELLING</p>
-                  <p className="text-silver text-[10px] mt-1">(Dopamine Loop Initiation)</p>
+                <div className="flex-[2] p-5 md:p-6 border-l-4 border-l-pink-400 bg-pink-400/[0.06] border border-pink-400/20">
+                  <p className="font-heading text-xs font-bold text-pink-400 italic">2-30s: TENSION & STORYTELLING</p>
+                  <p className="text-silver/70 text-[10px] mt-1">(Dopamine Loop Initiation)</p>
                 </div>
-                <div className="flex-[2] bg-neon/[0.03] border border-neon/10 p-4 md:p-6">
-                  <p className="font-heading text-xs font-bold text-neon-bright/60 italic">30-60s: REWARD / CTA</p>
-                  <p className="text-silver text-[10px] mt-1">(Data-Driven Conversion)</p>
+                <div className="flex-[2] p-5 md:p-6 border-l-4 border-l-cyan-400 bg-cyan-400/[0.06] border border-cyan-400/20">
+                  <p className="font-heading text-xs font-bold text-cyan-400 italic">30-60s: REWARD / CTA</p>
+                  <p className="text-silver/70 text-[10px] mt-1">(Data-Driven Conversion)</p>
                 </div>
               </div>
             </ScrollReveal>
@@ -326,16 +367,15 @@ export default function OurLabPage() {
             </ScrollReveal>
 
             <ScrollReveal delay={200}>
-              <div className="bg-surface border border-neon/15 rounded-xl p-6 mb-8 max-w-md">
-                <p className="text-silver italic text-base font-heading">
-                  &ldquo;Exponential growth in lead quality as community trust solidifies.&rdquo;
-                </p>
-              </div>
-
-              <div className="bg-surface rounded-xl p-6 md:p-10">
-                <svg viewBox="0 0 800 300" className="w-full h-auto" fill="none">
+              <div className="bg-surface rounded-xl p-6 md:p-10 relative border border-neon/10">
+                <svg viewBox="0 0 800 320" className="w-full h-auto" fill="none">
                   <line x1="80" y1="20" x2="80" y2="260" stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
                   <line x1="80" y1="260" x2="760" y2="260" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
+
+                  {/* Grid lines */}
+                  {[65, 130, 195].map((y) => (
+                    <line key={y} x1="80" y1={y} x2="760" y2={y} stroke="rgba(255,255,255,0.03)" strokeWidth="1" strokeDasharray="4 4" />
+                  ))}
 
                   <path
                     d="M 80 250 Q 200 245, 280 235 Q 360 220, 430 190 Q 500 140, 560 100 Q 620 65, 680 40 L 760 25"
@@ -343,6 +383,7 @@ export default function OurLabPage() {
                     strokeWidth="2.5"
                     fill="none"
                     strokeLinecap="round"
+                    className="drop-shadow-[0_0_8px_rgba(167,139,250,0.5)]"
                   />
                   <path
                     d="M 80 250 Q 200 245, 280 235 Q 360 220, 430 190 Q 500 140, 560 100 Q 620 65, 680 40 L 760 25 L 760 260 L 80 260 Z"
@@ -350,28 +391,54 @@ export default function OurLabPage() {
                     opacity="0.15"
                   />
 
+                  {/* Interactive data points with hover targets */}
                   {[
-                    [80, 250], [280, 235], [430, 190], [560, 100], [760, 25],
-                  ].map(([cx, cy], i) => (
-                    <g key={i}>
-                      <circle cx={cx} cy={cy} r="5" fill="none" stroke={i < 2 ? "#7c3aed" : "#a78bfa"} strokeWidth="1" opacity="0.3" />
-                      <circle cx={cx} cy={cy} r="3" fill={i < 2 ? "#7c3aed" : "#a78bfa"} />
+                    { cx: 80, cy: 250, label: "Baseline" },
+                    { cx: 280, cy: 235, label: "Traction" },
+                    { cx: 430, cy: 190, label: "Growth" },
+                    { cx: 560, cy: 100, label: "Acceleration" },
+                    { cx: 760, cy: 25, label: "Dominance" },
+                  ].map((pt, i) => (
+                    <g key={i} className="group cursor-pointer">
+                      {/* Larger invisible hover target */}
+                      <circle cx={pt.cx} cy={pt.cy} r="20" fill="transparent" className="pointer-events-auto" />
+                      {/* Pulse ring on hover */}
+                      <circle cx={pt.cx} cy={pt.cy} r="12" fill="none" stroke="#a78bfa" strokeWidth="0.5" opacity="0" className="group-hover:opacity-60 transition-opacity">
+                        <animate attributeName="r" from="8" to="20" dur="1.5s" repeatCount="indefinite" />
+                        <animate attributeName="opacity" from="0.6" to="0" dur="1.5s" repeatCount="indefinite" />
+                      </circle>
+                      <circle cx={pt.cx} cy={pt.cy} r="5" fill="none" stroke={i < 2 ? "#7c3aed" : "#a78bfa"} strokeWidth="1" opacity="0.3" />
+                      <circle cx={pt.cx} cy={pt.cy} r="3" fill={i < 2 ? "#7c3aed" : "#a78bfa"} className="group-hover:r-[5] transition-all" />
+                      {/* Tooltip on hover */}
+                      <text x={pt.cx} y={pt.cy - 15} fill="#a78bfa" fontSize="10" fontFamily="Orbitron" textAnchor="middle" opacity="0" className="group-hover:opacity-100 transition-opacity">
+                        {pt.label}
+                      </text>
                     </g>
                   ))}
 
+                  {/* Quote inside graph */}
+                  <text x="420" y="170" fill="#a78bfa" fontSize="11" fontFamily="Orbitron" textAnchor="middle" opacity="0.5">
+                    &quot;Exponential growth in lead quality
+                  </text>
+                  <text x="420" y="185" fill="#a78bfa" fontSize="11" fontFamily="Orbitron" textAnchor="middle" opacity="0.5">
+                    as community trust solidifies.&quot;
+                  </text>
+
+                  {/* Y-axis labels */}
+                  <text x="70" y="260" fill="#6b7280" fontSize="9" fontFamily="Orbitron" textAnchor="end">Low</text>
+                  <text x="70" y="140" fill="#6b7280" fontSize="9" fontFamily="Orbitron" textAnchor="end">Med</text>
+                  <text x="70" y="30" fill="#6b7280" fontSize="9" fontFamily="Orbitron" textAnchor="end">High</text>
+
                   {["Month 1", "Month 3", "Month 6", "Month 9", "Month 12"].map((label, i) => (
-                    <text
-                      key={label}
-                      x={80 + i * 170}
-                      y="285"
-                      fill="#9ca3af"
-                      fontSize="11"
-                      fontFamily="Orbitron"
-                      textAnchor="middle"
-                    >
+                    <text key={label} x={80 + i * 170} y="285" fill="#9ca3af" fontSize="11" fontFamily="Orbitron" textAnchor="middle">
                       {label}
                     </text>
                   ))}
+
+                  {/* Axis labels */}
+                  <text x="420" y="310" fill="#6b7280" fontSize="10" fontFamily="Orbitron" textAnchor="middle" letterSpacing="0.15em">
+                    COMMUNITY TRUST → LEAD QUALITY
+                  </text>
 
                   <defs>
                     <linearGradient id="gl" x1="80" y1="250" x2="760" y2="25">

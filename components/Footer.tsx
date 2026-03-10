@@ -23,7 +23,7 @@ export default function Footer() {
               className="h-8 w-auto mb-4"
             />
             <p className="text-silver text-sm leading-relaxed max-w-sm">
-              Engineering brand perception. We don&apos;t just market brands — we
+              Engineering brand perception. We don&apos;t just market brands, we
               architect systems that compound influence, trust, and revenue.
             </p>
             <div className="flex gap-3 mt-6">
