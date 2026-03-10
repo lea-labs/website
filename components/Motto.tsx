@@ -14,21 +14,20 @@ export default function Motto() {
             Who We Are
           </p>
           <h2 className="font-heading text-3xl md:text-5xl lg:text-6xl font-bold leading-tight">
-            Engineering Brand
+            We don&apos;t chase trends,
             <br />
-            <span className="text-neon-bright text-glow-strong">Perception</span>
+            <span className="text-neon-bright text-glow-strong">we create trends.</span>
           </h2>
         </ScrollReveal>
 
         <ScrollReveal delay={150} className="max-w-2xl mx-auto text-center">
           <p className="text-silver text-lg md:text-xl leading-relaxed mb-8">
-            We are a brand strategy, growth systems & digital influence
-            consultancy. We don&apos;t chase trends — we architect systems that
+            A brand strategy, growth systems & digital influence
+            consultancy based in Dubai. We architect systems that
             compound influence, trust, and revenue.
           </p>
         </ScrollReveal>
 
-        {/* Three capability badges */}
         <ScrollReveal delay={300}>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             {[

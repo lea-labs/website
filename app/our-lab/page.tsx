@@ -44,7 +44,7 @@ export default function OurLabPage() {
               <ScrollReveal>
                 <div className="bg-surface/50 border border-white/[0.06] rounded-xl p-8">
                   <span className="inline-block px-3 py-1 bg-steel/50 text-silver text-[10px] font-heading font-bold tracking-[0.2em] uppercase mb-6 rounded-sm">
-                    Current Stand (Failures)
+                    Usual Technique
                   </span>
                   <ul className="space-y-4">
                     {[
@@ -90,12 +90,27 @@ export default function OurLabPage() {
               </ScrollReveal>
             </div>
 
-            <ScrollReveal delay={300} className="mt-8">
-              <blockquote className="border-l-2 border-neon/40 pl-6">
-                <p className="text-silver italic text-base">
-                  &ldquo;Guerilla marketing grabs attention. Community building keeps it.&rdquo;
-                </p>
-              </blockquote>
+          </div>
+        </section>
+
+        {/* Quote Section */}
+        <section className="py-20 md:py-28 px-6 relative overflow-hidden">
+          <div className="glow-ambient top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+          <div className="max-w-5xl mx-auto relative z-10">
+            <ScrollReveal>
+              <div className="flex items-start gap-6">
+                <div className="w-px h-20 bg-gradient-to-b from-neon/60 to-transparent shrink-0 mt-2 hidden md:block" />
+                <div>
+                  <p className="font-heading text-xl md:text-2xl lg:text-3xl font-bold italic leading-tight text-off-white text-glow">
+                    &ldquo;Guerilla marketing grabs attention.
+                    <br />
+                    Community building keeps it.&rdquo;
+                  </p>
+                  <cite className="block mt-5 text-neon-bright text-xs md:text-sm font-heading tracking-[0.25em] uppercase not-italic">
+                    &mdash; Lea Labs
+                  </cite>
+                </div>
+              </div>
             </ScrollReveal>
           </div>
         </section>
@@ -158,7 +173,7 @@ export default function OurLabPage() {
         <section className="py-20 md:py-28 px-6 bg-abyss relative overflow-hidden">
           <div className="orbital-lines" />
           <div className="max-w-6xl mx-auto relative z-10">
-            <ScrollReveal className="mb-6">
+            <ScrollReveal className="mb-12">
               <h2 className="font-heading text-3xl md:text-5xl font-bold italic text-glow">
                 The Conversion Path
               </h2>
@@ -168,23 +183,89 @@ export default function OurLabPage() {
             </ScrollReveal>
 
             <ScrollReveal delay={200}>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                {[
-                  { label: "REACH", sub: "Viral Reels & Exposure", shade: "neon-dim" },
-                  { label: "TRUST", sub: "Community Nurturing", shade: "neon" },
-                  { label: "INTENT", sub: "Data-Backed Engagement", shade: "neon-glow" },
-                  { label: "LEAD", sub: "High-Intent Conversion", shade: "neon-bright" },
-                ].map((stage, i) => (
-                  <div key={stage.label} className="bg-surface border border-neon/15 rounded-xl overflow-hidden card-glow">
-                    <div className="h-1.5" style={{ background: `rgba(124,58,237,${0.3 + i * 0.2})` }} />
-                    <div className="p-7 text-center">
-                      <h3 className="font-heading text-xl font-bold tracking-[0.15em] mb-2 text-off-white">
-                        {stage.label}
-                      </h3>
-                      <p className="text-silver text-xs tracking-wider uppercase">{stage.sub}</p>
+              {/* Desktop: 4-column grid with connecting line */}
+              <div className="hidden lg:block relative">
+                {/* Gradient connecting line behind cards */}
+                <div className="absolute top-1/2 left-[10%] right-[10%] h-px -translate-y-1/2 z-0">
+                  <div className="w-full h-full bg-gradient-to-r from-neon/10 via-neon/30 to-neon-bright/50" />
+                </div>
+
+                <div className="relative z-10 grid grid-cols-4 gap-6">
+                  {[
+                    { label: "REACH", sub: "Viral Reels & Exposure", num: "01", intensity: 0.3, icon: (
+                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-neon-bright/60 group-hover:text-neon-bright transition-colors">
+                        <circle cx="12" cy="12" r="10" /><path d="M2 12h20" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                      </svg>
+                    )},
+                    { label: "TRUST", sub: "Community Nurturing", num: "02", intensity: 0.5, icon: (
+                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-neon-bright/60 group-hover:text-neon-bright transition-colors">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                      </svg>
+                    )},
+                    { label: "INTENT", sub: "Data-Backed Engagement", num: "03", intensity: 0.7, icon: (
+                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-neon-bright/60 group-hover:text-neon-bright transition-colors">
+                        <circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="6" /><circle cx="12" cy="12" r="2" />
+                      </svg>
+                    )},
+                    { label: "LEAD", sub: "High-Intent Conversion", num: "04", intensity: 1.0, icon: (
+                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-neon-bright/60 group-hover:text-neon-bright transition-colors">
+                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                      </svg>
+                    )},
+                  ].map((stage, i) => (
+                    <div key={stage.label} className="group relative">
+                      <div className="absolute -inset-2 rounded-2xl bg-neon/[0.04] opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
+
+                      <div className="relative bg-surface/80 backdrop-blur-sm border border-neon/15 rounded-xl p-6 text-center group-hover:border-neon/35 transition-all">
+                        <span className="font-mono text-[10px] text-neon/40 tracking-widest">{stage.num}</span>
+                        <div className="mx-auto mt-3 mb-3 flex justify-center">{stage.icon}</div>
+                        <h3 className="font-heading text-lg font-bold tracking-[0.15em] mb-2 text-off-white group-hover:text-neon-bright transition-colors">
+                          {stage.label}
+                        </h3>
+                        <p className="text-silver/70 text-xs tracking-wider uppercase leading-relaxed">{stage.sub}</p>
+                      </div>
+
+                      {i < 3 && (
+                        <div className="absolute -right-3 top-1/2 -translate-y-1/2 translate-x-1/2 z-20">
+                          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-neon/40">
+                            <path d="M3 7H11M8 4L11 7L8 10" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        </div>
+                      )}
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
+              </div>
+
+              {/* Mobile: vertical timeline */}
+              <div className="lg:hidden relative">
+                <div className="absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-neon/10 via-neon/25 to-neon-bright/40 z-0" />
+
+                <div className="space-y-6 relative z-10">
+                  {[
+                    { label: "REACH", sub: "Viral Reels & Exposure", num: "01", intensity: 0.3, iconPath: "M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" },
+                    { label: "TRUST", sub: "Community Nurturing", num: "02", intensity: 0.5, iconPath: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" },
+                    { label: "INTENT", sub: "Data-Backed Engagement", num: "03", intensity: 0.7, iconPath: "M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM12 6a6 6 0 1 0 0 12 6 6 0 0 0 0-12zM12 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" },
+                    { label: "LEAD", sub: "High-Intent Conversion", num: "04", intensity: 1.0, iconPath: "M13 2L3 14h9l-1 8 10-12h-9l1-8z" },
+                  ].map((stage) => (
+                    <div key={stage.label} className="flex items-center gap-5">
+                      <div className="w-12 shrink-0 flex justify-center">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-neon-bright/60">
+                          <path d={stage.iconPath} />
+                        </svg>
+                      </div>
+                      <div className="flex-1 bg-surface/80 backdrop-blur-sm border border-neon/15 rounded-xl p-5">
+                        <div className="flex items-baseline gap-3 mb-1">
+                          <span className="font-mono text-[10px] text-neon/40 tracking-widest">{stage.num}</span>
+                          <h3 className="font-heading text-base font-bold tracking-[0.15em] text-off-white">
+                            {stage.label}
+                          </h3>
+                        </div>
+                        <p className="text-silver/70 text-xs tracking-wider uppercase">{stage.sub}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </ScrollReveal>
 
@@ -210,60 +291,76 @@ export default function OurLabPage() {
               </h2>
             </ScrollReveal>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <ScrollReveal>
-                <span className="inline-block px-3 py-1 bg-neon/20 text-neon-bright text-[10px] font-heading font-bold tracking-[0.2em] uppercase mb-6 rounded-sm">
-                  Engineering Interest
-                </span>
-                <h3 className="font-heading text-2xl md:text-4xl font-bold italic leading-tight mb-6">
-                  We Don&apos;t Just
-                  <br />
-                  <span className="text-neon-bright text-glow">&ldquo;Shoot Videos&rdquo;</span>
-                </h3>
-                <div className="border-l-2 border-neon/25 pl-6">
-                  <p className="text-silver text-base leading-relaxed">
-                    We map human triggers into every frame. By engineering dopamine spikes
-                    and pattern interruptions, we force the brain to stop scrolling and
-                    start listening.
-                  </p>
-                </div>
-              </ScrollReveal>
-
-              <ScrollReveal delay={200}>
-                <div className="grid grid-cols-2 gap-4">
-                  {[
-                    { label: "Mere Exposure", sub: "Brand Familiarity" },
-                    { label: "Authority Bias", sub: "Legacy & Trust" },
-                    { label: "Halo Effect", sub: "Developer Synergy" },
-                    { label: "Loss Aversion", sub: "FOMO Loops" },
-                  ].map((node) => (
-                    <div
-                      key={node.label}
-                      className="border border-neon/20 rounded-xl p-5 text-center bg-surface/50 hover:border-neon/40 hover:bg-neon/[0.03] transition-all"
-                    >
-                      <span className="font-heading text-sm font-bold tracking-[0.1em] block mb-1 text-off-white">
-                        {node.label}
-                      </span>
-                      <span className="text-silver text-xs">{node.sub}</span>
-                    </div>
-                  ))}
+            {/* Brain-centered neural map layout */}
+            <ScrollReveal>
+              <div className="relative max-w-3xl mx-auto">
+                {/* Top node: Mere Exposure */}
+                <div className="flex justify-center mb-6">
+                  <div className="border border-neon/25 rounded-xl p-5 text-center bg-surface/50 hover:border-neon/40 hover:bg-neon/[0.03] transition-all w-56">
+                    <span className="font-heading text-sm font-bold tracking-[0.1em] block mb-1 text-off-white">Mere Exposure</span>
+                    <span className="text-silver text-xs">Brand Familiarity</span>
+                  </div>
                 </div>
 
-                <div className="mt-6 bg-surface border border-white/[0.06] rounded-xl p-6 text-center">
-                  <p className="font-heading text-[10px] tracking-[0.2em] uppercase text-neon/60 mb-2">
-                    Cognitive Engine
-                  </p>
-                  <p className="text-base text-silver leading-relaxed">
-                    Turn passive scrollers into a &ldquo;tribe&rdquo; of loyalists who view your
-                    brand as the{" "}
-                    <span className="text-neon-bright font-semibold underline decoration-neon/50">
-                      only logical choice
-                    </span>{" "}
-                    in the market.
-                  </p>
+                {/* Connector line down */}
+                <div className="flex justify-center"><div className="w-px h-6 bg-gradient-to-b from-neon/40 to-neon/20" /></div>
+
+                {/* Middle row: Authority Bias | Brain | Halo Effect */}
+                <div className="flex items-center justify-center gap-4 md:gap-8 my-4">
+                  <div className="border border-neon/25 rounded-xl p-5 text-center bg-surface/50 hover:border-neon/40 hover:bg-neon/[0.03] transition-all w-48">
+                    <span className="font-heading text-sm font-bold tracking-[0.1em] block mb-1 text-off-white">Authority Bias</span>
+                    <span className="text-silver text-xs">Legacy & Trust</span>
+                  </div>
+
+                  {/* Connector line */}
+                  <div className="w-6 h-px bg-gradient-to-r from-neon/40 to-neon/20 hidden md:block" />
+
+                  {/* Brain icon center */}
+                  <div className="relative w-36 h-36 md:w-48 md:h-48 shrink-0 flex items-center justify-center">
+                    <div className="absolute inset-0 rounded-full bg-neon/[0.06] blur-xl animate-pulse" />
+                    <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.8" className="text-neon-bright relative z-10 drop-shadow-[0_0_20px_rgba(167,139,250,0.5)]">
+                      <path d="M9.5 2a3.5 3.5 0 0 0-3.5 3.5c0 .5.1 1 .3 1.4A3.5 3.5 0 0 0 4 10.5c0 1 .4 1.9 1.1 2.5A3.5 3.5 0 0 0 4 15.5a3.5 3.5 0 0 0 2.6 3.4A3.5 3.5 0 0 0 10 22h1V12H9.5a3.5 3.5 0 0 1 0-7h1V2h-.5a3.49 3.49 0 0 0-.5 0z" />
+                      <path d="M14.5 2a3.5 3.5 0 0 1 3.5 3.5c0 .5-.1 1-.3 1.4A3.5 3.5 0 0 1 20 10.5c0 1-.4 1.9-1.1 2.5A3.5 3.5 0 0 1 20 15.5a3.5 3.5 0 0 1-2.6 3.4A3.5 3.5 0 0 1 14 22h-1V12h1.5a3.5 3.5 0 0 0 0-7H13V2h.5a3.49 3.49 0 0 1 .5 0z" />
+                    </svg>
+                  </div>
+
+                  {/* Connector line */}
+                  <div className="w-6 h-px bg-gradient-to-r from-neon/20 to-neon/40 hidden md:block" />
+
+                  <div className="border border-neon/25 rounded-xl p-5 text-center bg-surface/50 hover:border-neon/40 hover:bg-neon/[0.03] transition-all w-48">
+                    <span className="font-heading text-sm font-bold tracking-[0.1em] block mb-1 text-off-white">Halo Effect</span>
+                    <span className="text-silver text-xs">Developer Synergy</span>
+                  </div>
                 </div>
-              </ScrollReveal>
-            </div>
+
+                {/* Connector line down */}
+                <div className="flex justify-center"><div className="w-px h-6 bg-gradient-to-b from-neon/20 to-neon/40" /></div>
+
+                {/* Bottom node: Loss Aversion */}
+                <div className="flex justify-center mt-6">
+                  <div className="border border-neon/25 rounded-xl p-5 text-center bg-surface/50 hover:border-neon/40 hover:bg-neon/[0.03] transition-all w-56">
+                    <span className="font-heading text-sm font-bold tracking-[0.1em] block mb-1 text-off-white">Loss Aversion</span>
+                    <span className="text-silver text-xs">FOMO Loops</span>
+                  </div>
+                </div>
+              </div>
+            </ScrollReveal>
+
+            {/* Quote below brain structure */}
+            <ScrollReveal delay={200} className="mt-10">
+              <div className="text-center max-w-2xl mx-auto">
+                <p className="text-silver italic text-lg leading-relaxed">
+                  &ldquo;We don&apos;t just shoot videos&rdquo;
+                </p>
+                <p className="text-neon-bright font-heading text-sm tracking-[0.15em] uppercase mt-3">
+                  We map human triggers into every frame.
+                </p>
+                <p className="text-silver/70 text-sm mt-4 max-w-lg mx-auto">
+                  By engineering dopamine spikes and pattern interruptions, we force the brain
+                  to stop scrolling and start listening.
+                </p>
+              </div>
+            </ScrollReveal>
           </div>
         </section>
 
@@ -281,17 +378,18 @@ export default function OurLabPage() {
             </ScrollReveal>
 
             <ScrollReveal delay={150}>
-              <div className="flex rounded-xl overflow-hidden mb-10">
-                <div className="flex-1 bg-neon/10 border border-neon/20 p-4 md:p-6">
+              <div className="flex flex-col md:flex-row rounded-xl overflow-hidden mb-10">
+                <div className="flex-1 p-5 md:p-6 bg-neon/10 border border-neon/20">
                   <p className="font-heading text-xs font-bold text-neon-bright italic">0-2s: HOOK</p>
+                  <p className="text-silver/70 text-[10px] mt-1">Pattern Interrupt</p>
                 </div>
-                <div className="flex-[2] bg-neon/[0.06] border border-neon/15 p-4 md:p-6">
+                <div className="flex-[2] p-5 md:p-6 bg-neon/[0.06] border border-neon/15">
                   <p className="font-heading text-xs font-bold text-neon-bright/80 italic">2-30s: TENSION & STORYTELLING</p>
-                  <p className="text-silver text-[10px] mt-1">(Dopamine Loop Initiation)</p>
+                  <p className="text-silver/70 text-[10px] mt-1">(Dopamine Loop Initiation)</p>
                 </div>
-                <div className="flex-[2] bg-neon/[0.03] border border-neon/10 p-4 md:p-6">
+                <div className="flex-[2] p-5 md:p-6 bg-neon/[0.03] border border-neon/10">
                   <p className="font-heading text-xs font-bold text-neon-bright/60 italic">30-60s: REWARD / CTA</p>
-                  <p className="text-silver text-[10px] mt-1">(Data-Driven Conversion)</p>
+                  <p className="text-silver/70 text-[10px] mt-1">(Data-Driven Conversion)</p>
                 </div>
               </div>
             </ScrollReveal>
@@ -326,16 +424,15 @@ export default function OurLabPage() {
             </ScrollReveal>
 
             <ScrollReveal delay={200}>
-              <div className="bg-surface border border-neon/15 rounded-xl p-6 mb-8 max-w-md">
-                <p className="text-silver italic text-base font-heading">
-                  &ldquo;Exponential growth in lead quality as community trust solidifies.&rdquo;
-                </p>
-              </div>
-
-              <div className="bg-surface rounded-xl p-6 md:p-10">
-                <svg viewBox="0 0 800 300" className="w-full h-auto" fill="none">
+              <div className="bg-surface rounded-xl p-6 md:p-10 relative border border-neon/10">
+                <svg viewBox="0 0 800 320" className="w-full h-auto" fill="none">
                   <line x1="80" y1="20" x2="80" y2="260" stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
                   <line x1="80" y1="260" x2="760" y2="260" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
+
+                  {/* Grid lines */}
+                  {[65, 130, 195].map((y) => (
+                    <line key={y} x1="80" y1={y} x2="760" y2={y} stroke="rgba(255,255,255,0.03)" strokeWidth="1" strokeDasharray="4 4" />
+                  ))}
 
                   <path
                     d="M 80 250 Q 200 245, 280 235 Q 360 220, 430 190 Q 500 140, 560 100 Q 620 65, 680 40 L 760 25"
@@ -343,6 +440,7 @@ export default function OurLabPage() {
                     strokeWidth="2.5"
                     fill="none"
                     strokeLinecap="round"
+                    className="drop-shadow-[0_0_8px_rgba(167,139,250,0.5)]"
                   />
                   <path
                     d="M 80 250 Q 200 245, 280 235 Q 360 220, 430 190 Q 500 140, 560 100 Q 620 65, 680 40 L 760 25 L 760 260 L 80 260 Z"
@@ -350,28 +448,54 @@ export default function OurLabPage() {
                     opacity="0.15"
                   />
 
+                  {/* Interactive data points with hover targets */}
                   {[
-                    [80, 250], [280, 235], [430, 190], [560, 100], [760, 25],
-                  ].map(([cx, cy], i) => (
-                    <g key={i}>
-                      <circle cx={cx} cy={cy} r="5" fill="none" stroke={i < 2 ? "#7c3aed" : "#a78bfa"} strokeWidth="1" opacity="0.3" />
-                      <circle cx={cx} cy={cy} r="3" fill={i < 2 ? "#7c3aed" : "#a78bfa"} />
+                    { cx: 80, cy: 250, label: "Baseline" },
+                    { cx: 280, cy: 235, label: "Traction" },
+                    { cx: 430, cy: 190, label: "Growth" },
+                    { cx: 560, cy: 100, label: "Acceleration" },
+                    { cx: 760, cy: 25, label: "Dominance" },
+                  ].map((pt, i) => (
+                    <g key={i} className="group cursor-pointer">
+                      {/* Larger invisible hover target */}
+                      <circle cx={pt.cx} cy={pt.cy} r="20" fill="transparent" className="pointer-events-auto" />
+                      {/* Pulse ring on hover */}
+                      <circle cx={pt.cx} cy={pt.cy} r="12" fill="none" stroke="#a78bfa" strokeWidth="0.5" opacity="0" className="group-hover:opacity-60 transition-opacity">
+                        <animate attributeName="r" from="8" to="20" dur="1.5s" repeatCount="indefinite" />
+                        <animate attributeName="opacity" from="0.6" to="0" dur="1.5s" repeatCount="indefinite" />
+                      </circle>
+                      <circle cx={pt.cx} cy={pt.cy} r="5" fill="none" stroke={i < 2 ? "#7c3aed" : "#a78bfa"} strokeWidth="1" opacity="0.3" />
+                      <circle cx={pt.cx} cy={pt.cy} r="3" fill={i < 2 ? "#7c3aed" : "#a78bfa"} className="group-hover:r-[5] transition-all" />
+                      {/* Tooltip on hover */}
+                      <text x={pt.cx} y={pt.cy - 15} fill="#a78bfa" fontSize="10" fontFamily="Orbitron" textAnchor="middle" opacity="0" className="group-hover:opacity-100 transition-opacity">
+                        {pt.label}
+                      </text>
                     </g>
                   ))}
 
+                  {/* Quote top-left corner */}
+                  <text x="95" y="42" fill="#a78bfa" fontSize="10" fontFamily="Orbitron" textAnchor="start" opacity="0.6">
+                    &quot;Exponential growth in lead quality
+                  </text>
+                  <text x="95" y="56" fill="#a78bfa" fontSize="10" fontFamily="Orbitron" textAnchor="start" opacity="0.6">
+                    as community trust solidifies.&quot;
+                  </text>
+
+                  {/* Y-axis labels */}
+                  <text x="70" y="260" fill="#6b7280" fontSize="9" fontFamily="Orbitron" textAnchor="end">Low</text>
+                  <text x="70" y="140" fill="#6b7280" fontSize="9" fontFamily="Orbitron" textAnchor="end">Med</text>
+                  <text x="70" y="30" fill="#6b7280" fontSize="9" fontFamily="Orbitron" textAnchor="end">High</text>
+
                   {["Month 1", "Month 3", "Month 6", "Month 9", "Month 12"].map((label, i) => (
-                    <text
-                      key={label}
-                      x={80 + i * 170}
-                      y="285"
-                      fill="#9ca3af"
-                      fontSize="11"
-                      fontFamily="Orbitron"
-                      textAnchor="middle"
-                    >
+                    <text key={label} x={80 + i * 170} y="285" fill="#9ca3af" fontSize="11" fontFamily="Orbitron" textAnchor="middle">
                       {label}
                     </text>
                   ))}
+
+                  {/* Axis labels */}
+                  <text x="420" y="310" fill="#6b7280" fontSize="10" fontFamily="Orbitron" textAnchor="middle" letterSpacing="0.15em">
+                    COMMUNITY TRUST → LEAD QUALITY
+                  </text>
 
                   <defs>
                     <linearGradient id="gl" x1="80" y1="250" x2="760" y2="25">
@@ -401,23 +525,26 @@ export default function OurLabPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <ScrollReveal>
-                <div className="bg-surface/50 border border-white/[0.06] rounded-xl p-8">
+                <div className="bg-surface/50 border border-white/[0.06] rounded-xl p-8 h-full">
                   <span className="inline-block px-3 py-1 bg-steel/30 text-silver text-[10px] font-heading font-bold tracking-[0.2em] uppercase mb-6 rounded-sm">
                     Other Agencies
                   </span>
                   <ul className="space-y-3">
                     {[
-                      '"Shoot & Edit" (Zero Strategy)',
-                      "Vanity Metrics Focus (Likes)",
-                      "Manual, Slow Growth",
-                      "Guessing the Niche",
+                      { label: '"Shoot & Edit"', sub: "Zero strategy behind the content" },
+                      { label: "Vanity Metrics Focus", sub: "Chasing likes over conversions" },
+                      { label: "Manual, Slow Growth", sub: "No systems or automation" },
+                      { label: "Guessing the Niche", sub: "No research-backed positioning" },
                     ].map((item) => (
-                      <li key={item} className="flex items-center gap-3">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-muted/40 shrink-0">
+                      <li key={item.label} className="flex items-start gap-3">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-muted/40 mt-0.5 shrink-0">
                           <line x1="18" y1="6" x2="6" y2="18" />
                           <line x1="6" y1="6" x2="18" y2="18" />
                         </svg>
-                        <span className="text-silver/70 text-sm">{item}</span>
+                        <div>
+                          <p className="text-silver/70 text-sm font-medium">{item.label}</p>
+                          <p className="text-silver/50 text-xs">{item.sub}</p>
+                        </div>
                       </li>
                     ))}
                   </ul>
@@ -425,7 +552,7 @@ export default function OurLabPage() {
               </ScrollReveal>
 
               <ScrollReveal delay={150}>
-                <div className="bg-surface/50 border border-neon/20 rounded-xl p-8 relative overflow-hidden">
+                <div className="bg-surface/50 border border-neon/20 rounded-xl p-8 h-full relative overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-neon/[0.04] to-transparent pointer-events-none" />
                   <span className="inline-block px-3 py-1 bg-neon/20 text-neon-bright text-[10px] font-heading font-bold tracking-[0.2em] uppercase mb-6 rounded-sm relative z-10">
                     LEA Labs

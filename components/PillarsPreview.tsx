@@ -2,6 +2,7 @@
 
 import ScrollReveal from "./ScrollReveal";
 import Link from "next/link";
+import { GlowingEffect } from "./GlowingEffect";
 
 const pillars = [
   {
@@ -64,6 +65,7 @@ export default function PillarsPreview() {
               <ScrollReveal key={p.num} delay={i * 100}>
                 <Link href="/services" className="block group h-full">
                   <div className="relative h-full border border-white/[0.06] rounded-xl p-8 bg-gradient-to-b from-surface/60 to-void/40 hover:border-neon/30 transition-all duration-500 overflow-hidden">
+                    <GlowingEffect spread={40} glow={true} disabled={false} proximity={64} inactiveZone={0.01} borderWidth={2} />
                     {/* Glow corner */}
                     <div className="absolute top-0 right-0 w-24 h-24 bg-neon/[0.04] rounded-bl-full pointer-events-none group-hover:bg-neon/[0.08] transition-colors" />
 
@@ -97,6 +99,7 @@ export default function PillarsPreview() {
               <ScrollReveal key={p.num} delay={(i + 3) * 100}>
                 <Link href="/services" className="block group h-full">
                   <div className="relative h-full border border-white/[0.06] rounded-xl p-8 bg-gradient-to-b from-surface/60 to-void/40 hover:border-neon/30 transition-all duration-500 overflow-hidden">
+                    <GlowingEffect spread={40} glow={true} disabled={false} proximity={64} inactiveZone={0.01} borderWidth={2} />
                     <div className="absolute top-0 right-0 w-24 h-24 bg-neon/[0.04] rounded-bl-full pointer-events-none group-hover:bg-neon/[0.08] transition-colors" />
 
                     <div className="flex items-start gap-4 mb-4">

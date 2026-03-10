@@ -38,7 +38,7 @@ export default function Header() {
             </Link>
           ))}
           <a
-            href="mailto:hello@lealabs.com"
+            href="mailto:hello@thelealabs.com"
             className="text-xs font-heading font-semibold tracking-[0.15em] uppercase px-6 py-3 border border-neon/30 rounded-full text-neon-bright hover:bg-neon/10 hover:border-neon/50 transition-all"
           >
             Get in Touch
@@ -83,10 +83,10 @@ export default function Header() {
               </Link>
             ))}
             <a
-              href="mailto:hello@lealabs.com"
+              href="mailto:hello@thelealabs.com"
               className="text-sm font-heading tracking-wider text-neon-bright"
             >
-              hello@lealabs.com
+              hello@thelealabs.com
             </a>
           </div>
         </div>

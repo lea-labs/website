@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { ArrowRight, Link, Zap } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -26,23 +26,46 @@ export default function RadialOrbitalTimeline({
   timelineData,
 }: RadialOrbitalTimelineProps) {
   const [expandedItems, setExpandedItems] = useState<Record<number, boolean>>({});
-  const [rotationAngle, setRotationAngle] = useState<number>(0);
-  const [autoRotate, setAutoRotate] = useState<boolean>(true);
   const [pulseEffect, setPulseEffect] = useState<Record<number, boolean>>({});
-  const [centerOffset] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [activeNodeId, setActiveNodeId] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const orbitRef = useRef<HTMLDivElement>(null);
   const nodeRefs = useRef<Record<number, HTMLDivElement | null>>({});
 
-  const handleContainerClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target === containerRef.current || e.target === orbitRef.current) {
-      setExpandedItems({});
-      setActiveNodeId(null);
-      setPulseEffect({});
-      setAutoRotate(true);
+  // Smooth animation state using refs (no re-renders per frame)
+  const angleRef = useRef(0);
+  const targetSpeedRef = useRef(0.08); // degrees per frame at 60fps
+  const currentSpeedRef = useRef(0.08);
+  const autoRotateRef = useRef(true);
+  const rafRef = useRef<number>(0);
+  const lastTimeRef = useRef(0);
+  const [, forceRender] = useState(0);
+
+  // Smooth lerp for speed transitions
+  const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+
+  const tick = useCallback((timestamp: number) => {
+    if (!lastTimeRef.current) lastTimeRef.current = timestamp;
+    const delta = (timestamp - lastTimeRef.current) / 16.667; // normalize to 60fps
+    lastTimeRef.current = timestamp;
+
+    // Smoothly interpolate speed (eased start/stop)
+    const targetSpeed = autoRotateRef.current ? 0.08 : 0;
+    currentSpeedRef.current = lerp(currentSpeedRef.current, targetSpeed, 0.04);
+
+    // Apply rotation
+    if (Math.abs(currentSpeedRef.current) > 0.0001) {
+      angleRef.current = (angleRef.current + currentSpeedRef.current * delta) % 360;
+      forceRender((n) => n + 1);
     }
-  };
+
+    rafRef.current = requestAnimationFrame(tick);
+  }, []);
+
+  useEffect(() => {
+    rafRef.current = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, [tick]);
 
   const toggleItem = (id: number) => {
     setExpandedItems((prev) => {
@@ -54,15 +77,18 @@ export default function RadialOrbitalTimeline({
 
       if (!prev[id]) {
         setActiveNodeId(id);
-        setAutoRotate(false);
+        autoRotateRef.current = false;
         const relatedItems = getRelatedItems(id);
         const newPulse: Record<number, boolean> = {};
         relatedItems.forEach((relId) => { newPulse[relId] = true; });
         setPulseEffect(newPulse);
-        centerViewOnNode(id);
+        // Smoothly rotate to center the node at top
+        const nodeIndex = timelineData.findIndex((item) => item.id === id);
+        const targetAngle = 270 - (nodeIndex / timelineData.length) * 360;
+        angleRef.current = targetAngle;
       } else {
         setActiveNodeId(null);
-        setAutoRotate(true);
+        autoRotateRef.current = true;
         setPulseEffect({});
       }
 
@@ -70,30 +96,14 @@ export default function RadialOrbitalTimeline({
     });
   };
 
-  useEffect(() => {
-    let timer: NodeJS.Timeout;
-    if (autoRotate) {
-      timer = setInterval(() => {
-        setRotationAngle((prev) => Number(((prev + 0.3) % 360).toFixed(3)));
-      }, 50);
-    }
-    return () => { if (timer) clearInterval(timer); };
-  }, [autoRotate]);
-
-  const centerViewOnNode = (nodeId: number) => {
-    const nodeIndex = timelineData.findIndex((item) => item.id === nodeId);
-    const targetAngle = (nodeIndex / timelineData.length) * 360;
-    setRotationAngle(270 - targetAngle);
-  };
-
   const calculateNodePosition = (index: number, total: number) => {
-    const angle = ((index / total) * 360 + rotationAngle) % 360;
-    const radius = 200;
+    const angle = ((index / total) * 360 + angleRef.current) % 360;
+    const radius = 220;
     const radian = (angle * Math.PI) / 180;
-    const x = radius * Math.cos(radian) + centerOffset.x;
-    const y = radius * Math.sin(radian) + centerOffset.y;
+    const x = radius * Math.cos(radian);
+    const y = radius * Math.sin(radian);
     const zIndex = Math.round(100 + 50 * Math.cos(radian));
-    const opacity = Math.max(0.4, Math.min(1, 0.4 + 0.6 * ((1 + Math.sin(radian)) / 2)));
+    const opacity = Math.max(0.5, Math.min(1, 0.5 + 0.5 * ((1 + Math.sin(radian)) / 2)));
     return { x, y, angle, zIndex, opacity };
   };
 
@@ -124,9 +134,8 @@ export default function RadialOrbitalTimeline({
     <div
       className="w-full h-[600px] md:h-[700px] flex flex-col items-center justify-center bg-void overflow-hidden relative"
       ref={containerRef}
-      onClick={handleContainerClick}
     >
-      {/* Console frame — outer hull */}
+      {/* Console frame */}
       <div className="absolute inset-3 border border-neon/[0.08] rounded-2xl pointer-events-none" />
       <div className="absolute inset-6 border border-neon/[0.04] rounded-xl pointer-events-none" />
 
@@ -138,7 +147,7 @@ export default function RadialOrbitalTimeline({
         }}
       />
 
-      {/* Corner brackets — spaceship HUD */}
+      {/* Corner brackets */}
       {[
         "top-3 left-3 border-l-2 border-t-2 rounded-tl-xl",
         "top-3 right-3 border-r-2 border-t-2 rounded-tr-xl",
@@ -148,7 +157,7 @@ export default function RadialOrbitalTimeline({
         <div key={pos} className={`absolute w-10 h-10 ${pos} border-neon/25 pointer-events-none`} />
       ))}
 
-      {/* Status readout — top bar */}
+      {/* Status readout */}
       <div className="absolute top-5 left-1/2 -translate-x-1/2 flex items-center gap-4 pointer-events-none z-20">
         <div className="flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-neon-bright animate-pulse shadow-lg shadow-neon/40" />
@@ -158,7 +167,7 @@ export default function RadialOrbitalTimeline({
         </div>
         <div className="w-px h-3 bg-neon/15" />
         <span className="font-heading text-[10px] tracking-[0.35em] uppercase text-neon-bright/80 font-semibold">
-          LEA Framework — Active
+          LEA Framework | Active
         </span>
         <div className="w-px h-3 bg-neon/15" />
         <div className="flex items-center gap-2">
@@ -188,26 +197,23 @@ export default function RadialOrbitalTimeline({
         <div
           className="absolute w-full h-full flex items-center justify-center"
           ref={orbitRef}
-          style={{
-            perspective: "1000px",
-            transform: `translate(${centerOffset.x}px, ${centerOffset.y}px)`,
-          }}
+          style={{ perspective: "1000px" }}
         >
           {/* Center node — reactor core */}
-          <div className="absolute w-16 h-16 rounded-full bg-gradient-to-br from-neon via-neon-glow to-neon-dim animate-pulse flex items-center justify-center z-10">
-            <div className="absolute w-20 h-20 rounded-full border border-neon-bright/25 animate-ping opacity-70" />
-            <div className="absolute w-24 h-24 rounded-full border border-neon/15 animate-ping opacity-50" style={{ animationDelay: "0.5s" }} />
+          <div className="absolute w-16 h-16 rounded-full bg-gradient-to-br from-neon via-neon-glow to-neon-dim flex items-center justify-center z-10">
+            <div className="absolute w-20 h-20 rounded-full border border-neon-bright/20" style={{ animation: "pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite" }} />
+            <div className="absolute w-24 h-24 rounded-full border border-neon/10" style={{ animation: "pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite 1s" }} />
             <div className="absolute w-32 h-32 rounded-full border border-neon/[0.06]" />
-            <div className="absolute w-40 h-40 rounded-full border border-neon/[0.03] border-dashed" style={{ animation: "spin 20s linear infinite" }} />
+            <div className="absolute w-40 h-40 rounded-full border border-neon/[0.03] border-dashed" style={{ animation: "spin 30s linear infinite" }} />
             <div className="w-8 h-8 rounded-full bg-off-white/90 backdrop-blur-md shadow-lg shadow-neon/20" />
           </div>
 
           {/* Orbit rings */}
           <div className="absolute w-96 h-96 rounded-full border border-neon/[0.1]" />
-          <div className="absolute w-80 h-80 rounded-full border border-neon/[0.05] border-dashed" style={{ animation: "spin 30s linear infinite reverse" }} />
+          <div className="absolute w-80 h-80 rounded-full border border-neon/[0.05] border-dashed" style={{ animation: "spin 40s linear infinite reverse" }} />
           <div className="absolute w-[420px] h-[420px] rounded-full border border-neon/[0.03]" />
 
-          {/* Tick marks on orbit ring */}
+          {/* Tick marks */}
           {Array.from({ length: 36 }).map((_, i) => {
             const a = (i / 36) * 360;
             const r = 192;
@@ -226,6 +232,27 @@ export default function RadialOrbitalTimeline({
             );
           })}
 
+          {/* Connection lines from center to nodes */}
+          <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ overflow: "visible" }}>
+            {timelineData.map((item, index) => {
+              const pos = calculateNodePosition(index, timelineData.length);
+              const cx = pos.x;
+              const cy = pos.y;
+              return (
+                <line
+                  key={`line-${item.id}`}
+                  x1="50%"
+                  y1="50%"
+                  x2={`calc(50% + ${cx}px)`}
+                  y2={`calc(50% + ${cy}px)`}
+                  stroke="rgba(124,58,237,0.08)"
+                  strokeWidth="1"
+                  strokeDasharray="4 4"
+                />
+              );
+            })}
+          </svg>
+
           {timelineData.map((item, index) => {
             const position = calculateNodePosition(index, timelineData.length);
             const isExpanded = expandedItems[item.id];
@@ -237,15 +264,28 @@ export default function RadialOrbitalTimeline({
               <div
                 key={item.id}
                 ref={(el) => { nodeRefs.current[item.id] = el; }}
-                className="absolute transition-all duration-700 cursor-pointer"
+                className="absolute cursor-pointer"
                 style={{
                   transform: `translate(${position.x}px, ${position.y}px)`,
                   zIndex: isExpanded ? 200 : position.zIndex,
                   opacity: isExpanded ? 1 : position.opacity,
+                  transition: "opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s",
                 }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  toggleItem(item.id);
+                onMouseEnter={() => {
+                  // Pause rotation and expand — do NOT snap angle (causes glitch loop)
+                  autoRotateRef.current = false;
+                  setActiveNodeId(item.id);
+                  setExpandedItems({ [item.id]: true });
+                  const relatedItems = getRelatedItems(item.id);
+                  const newPulse: Record<number, boolean> = {};
+                  relatedItems.forEach((relId) => { newPulse[relId] = true; });
+                  setPulseEffect(newPulse);
+                }}
+                onMouseLeave={() => {
+                  setExpandedItems({});
+                  setActiveNodeId(null);
+                  setPulseEffect({});
+                  autoRotateRef.current = true;
                 }}
               >
                 {/* Energy field */}
@@ -262,31 +302,30 @@ export default function RadialOrbitalTimeline({
 
                 {/* Node */}
                 <div
-                  className={`w-12 h-12 rounded-full flex items-center justify-center border-2 transition-all duration-300 ${
+                  className={`w-16 h-16 rounded-full flex items-center justify-center border-2 transition-all duration-500 ease-out ${
                     isExpanded
-                      ? "bg-neon text-void border-neon-bright shadow-lg shadow-neon/40 scale-150"
+                      ? "bg-neon text-void border-neon-bright shadow-lg shadow-neon/40 scale-125"
                       : isRelated
                         ? "bg-neon/50 text-void border-neon-bright animate-pulse"
                         : "bg-surface text-neon-bright border-neon/30 hover:border-neon/50"
                   }`}
                 >
-                  <Icon size={18} />
+                  <Icon size={24} />
                 </div>
 
                 {/* Label */}
                 <div
-                  className={`absolute top-14 left-1/2 -translate-x-1/2 whitespace-nowrap text-[11px] font-heading font-bold tracking-[0.15em] uppercase transition-all duration-300 ${
-                    isExpanded ? "text-neon-bright scale-110 text-glow" : "text-silver/80"
+                  className={`absolute top-[4.5rem] left-1/2 -translate-x-1/2 whitespace-nowrap text-[11px] font-heading font-bold tracking-[0.15em] uppercase transition-all duration-500 ease-out ${
+                    isExpanded ? "text-neon-bright scale-110 text-glow" : "text-silver"
                   }`}
                 >
                   {item.title}
                 </div>
 
-                {/* Expanded panel — ship's data readout */}
+                {/* Expanded panel */}
                 {isExpanded && (
-                  <Card className="absolute top-20 left-1/2 -translate-x-1/2 w-72 bg-void/95 backdrop-blur-xl border-neon/25 shadow-xl shadow-neon/15 overflow-visible">
+                  <Card className="absolute top-24 left-1/2 -translate-x-1/2 w-72 bg-void/95 backdrop-blur-xl border-neon/25 shadow-xl shadow-neon/15 overflow-visible animate-in fade-in slide-in-from-top-2 duration-300">
                     <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-px h-3 bg-neon/50" />
-                    {/* HUD corners */}
                     <div className="absolute top-0 left-0 w-4 h-4 border-l-2 border-t-2 border-neon/40" />
                     <div className="absolute top-0 right-0 w-4 h-4 border-r-2 border-t-2 border-neon/40" />
                     <div className="absolute bottom-0 left-0 w-4 h-4 border-l-2 border-b-2 border-neon/40" />
@@ -314,7 +353,7 @@ export default function RadialOrbitalTimeline({
                         </div>
                         <div className="w-full h-1.5 bg-surface rounded-full overflow-hidden">
                           <div
-                            className="h-full bg-gradient-to-r from-neon-dim to-neon-bright rounded-full shadow-sm shadow-neon/30"
+                            className="h-full bg-gradient-to-r from-neon-dim to-neon-bright rounded-full shadow-sm shadow-neon/30 transition-all duration-1000"
                             style={{ width: `${item.energy}%` }}
                           />
                         </div>

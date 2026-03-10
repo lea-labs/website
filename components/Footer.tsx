@@ -23,7 +23,7 @@ export default function Footer() {
               className="h-8 w-auto mb-4"
             />
             <p className="text-silver text-sm leading-relaxed max-w-sm">
-              Engineering brand perception. We don&apos;t just market brands — we
+              Engineering brand perception. We don&apos;t just market brands, we
               architect systems that compound influence, trust, and revenue.
             </p>
             <div className="flex gap-3 mt-6">
@@ -71,13 +71,8 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3">
               <li>
-                <a href="mailto:hello@lealabs.com" className="text-sm text-silver/70 hover:text-neon-bright transition-colors">
-                  hello@lealabs.com
-                </a>
-              </li>
-              <li>
-                <a href="tel:+971509424277" className="text-sm text-silver/70 hover:text-neon-bright transition-colors">
-                  +971 50 942 4277
+                <a href="mailto:hello@thelealabs.com" className="text-sm text-silver/70 hover:text-neon-bright transition-colors">
+                  hello@thelealabs.com
                 </a>
               </li>
               <li>
